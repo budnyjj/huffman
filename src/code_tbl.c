@@ -29,10 +29,7 @@ print_code_tbl(struct hf_code * tbl)
       code_t code = tbl[i].code;
       printf("%c:\t%10d: ", i, tbl[i].size);
 
-      if (tbl[i].size == 0)
-	printf("<root>");
-
-      for (j = 0; j < tbl[i].size; ++j)
+      for (j = 0; j < size * 8; ++j)
 	{
 	  printf("%u", code & max_pow ? 1 : 0); /* print last bit and shift left. */
 	  code <<= 1;

@@ -3,22 +3,20 @@
 const char* program_name;
 
 void 
-print_usage (FILE* stream, int exit_code)
+print_usage (FILE* stream)
 {
   fprintf (stream, "Usage: %s [COMMAND...] [FILENAME]\n", program_name);
   fprintf (stream,
 	   " -h --help\t Display this help message\n"
-	   " -c --create\t Create a new archive\n");
-  exit (exit_code);
+	   " -c --create\t Create a new archive\n"
+	   " -v --verbose\t Display info and debug messages\n");
 }
 
-struct io_options
-make_options() {
-  struct io_options options;
-  options.command = NONE;
-  options.filename = NULL;
-  options.verbose = 0;
-  return options;
+void
+init_options(struct io_options * opts) {
+  opts->command = NONE;
+  opts->filename = NULL;
+  opts->verbose = 0;
 }
 
 void
@@ -50,9 +48,10 @@ get_options (int argc, char *argv[], struct io_options * options)
 	break;
 
       case 'h': 
-	print_usage (stdout, 0);
-	break;
-
+	{
+	  print_usage (stdout);
+	  exit(0);
+	}
       case 'v':
 	options->verbose = 1;
 	break;
@@ -62,9 +61,10 @@ get_options (int argc, char *argv[], struct io_options * options)
 	break;
 
       case '?': /* invalid option */
-	print_usage (stderr, 1);
-	break;
-
+	{
+	  print_usage(stderr);
+	  exit(1);
+	}
       default:
 	abort (); /* smth else */
       }
@@ -76,32 +76,37 @@ get_options (int argc, char *argv[], struct io_options * options)
     options->filename = argv[optind];
   else if (num_files > 1)
     {
-      puts("This program cannot work with "
-	   "more than one file per launch!");
-      print_usage(stderr, 1);
+      fprintf(stderr,
+	      "This program cannot work with "
+	      "more than one file per launch!\n");
+      print_usage(stderr);
+      exit(1);
     }
 }
 
 void 
-check_options (struct io_options * options)
+check_options(struct io_options * options)
 {
   if (options->command == NONE) 
     {
-      puts("Please specify COMMAND!");
-      print_usage(stdout, 0);
+      fprintf(stderr, "Please specify COMMAND!\n");
+      print_usage(stderr);
+      exit(1);
     }
 
   if ((options->filename != NULL) &&
       (access(options->filename, R_OK) == -1))
-    puts("Please specify existing file!");
+    {
+      fprintf(stderr, "Please specify existing file!\n");
+      exit(1);
+    }
 }
 
-struct io_options
-io_get_options (int argc, char *argv[])
+void
+io_get_options(int argc, char *argv[], struct io_options * dest_opts)
 {
-  struct io_options options = make_options();
-  get_options(argc, argv, &options);
-  check_options(&options);
-  return options;
+  init_options(dest_opts);
+  get_options(argc, argv, dest_opts);
+  check_options(dest_opts);
 }
 

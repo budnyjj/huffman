@@ -42,8 +42,6 @@ void
 print_ppl(ppl_t * ppl) 
 {
   int i, j;
-  const int start = 33; /* space code */
-  const int end = 127; /* del code */
   const int factor = 80; /* max bar chart width */
   
   ppl_t max_ppl = 0;
@@ -53,8 +51,7 @@ print_ppl(ppl_t * ppl)
       max_ppl = ppl[i];
 
   puts("=== CHARACTER POPULARITY TABLE ===");
-  puts("(without unprintable characters)");
-  for (i = start; i < end; ++i)
+  for (i = 0; i < MAX_PPL_SIZE; ++i)
     {
       int bar_width = (((double) ppl[i]) * factor) / max_ppl;
       printf("%c: %10ld [", i, ((long int) ppl[i]));
@@ -62,6 +59,5 @@ print_ppl(ppl_t * ppl)
 	printf("#");
       printf("]\n");
     }
-  puts("...");
   puts("==================================");
 }

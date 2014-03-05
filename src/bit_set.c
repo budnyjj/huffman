@@ -6,20 +6,17 @@ fill_bit_set(code_t * src_bit_set)
 /* Assume that size of array is more than MAX_BIT_SET_SIZE */
 {
   int i;
-  code_t val = 1 << (sizeof(code_t)*8 - 1);
+  code_t val = 1;
 
   for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
     {
       src_bit_set[i] = val;
-      val >>= 1;
+      val <<= 1;
     }
 }
 
 void 
 print_bit_set(code_t * bit_set)
-/* Fill array of code_t with
-   (0 repeated i times...1, 0 remaining)
-   values, where i is array index. */
 /* Assume that size of array is more than MAX_BIT_SET_SIZE */
 {
   int i;

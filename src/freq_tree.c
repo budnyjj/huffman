@@ -56,7 +56,6 @@ void
 tree_export_code(struct node_t * src_tree, struct hf_code * dest_code_tbl, int verbose)
 /* Export character codes from huffman tree to code table */
 {
-
   int init_level = 0;
   code_t init_code = 0;
   

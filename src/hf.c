@@ -6,7 +6,8 @@
 int
 main (int argc, char *argv[])
 {
-  struct io_options options = io_get_options(argc, argv);
+  struct io_options options;
+  io_get_options(argc, argv, &options);
 
   switch (options.command) 
     {

@@ -12,7 +12,7 @@ struct io_options {
   int verbose;
 };
 
-extern struct io_options
-io_get_options(int argc, char *argv[]);
+extern void
+io_get_options(int argc, char *argv[], struct io_options *);
 
 #endif
