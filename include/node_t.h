@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#include <freq_t.h>
+
 #ifndef _NODE_T_
 #define _NODE_T_
 
@@ -10,7 +12,7 @@ struct node_t;
 struct node_t 
 {
   int o_char; /* original char code */
-  double freq;
+  freq_t freq;
   struct node_t * left;
   struct node_t * right;
 };

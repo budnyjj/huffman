@@ -15,7 +15,7 @@ obj/./src/freq_heap.o: src/freq_heap.c /usr/include/stdc-predef.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- include/ppl_t.h include/node_t.h
+ include/ppl_t.h include/node_t.h include/freq_t.h
 
 /usr/include/stdc-predef.h:
 
@@ -88,3 +88,5 @@ include/freq_heap.h:
 include/ppl_t.h:
 
 include/node_t.h:
+
+include/freq_t.h:

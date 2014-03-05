@@ -28,3 +28,47 @@ build_tree(ppl_t * src_ppl, int verbose)
 
   return heap_extract_min(&h);
 }
+
+void traverse_tree(struct node_t * cur_node, struct hf_code * code_tbl,
+		   code_t cur_code, int cur_level,  code_t * bit_set)
+/* Recursive traverse on NOT NULL tree. */
+/* Assume that size of code_tbl >= maximal character code */
+/* Assume that each not NULL_CHAR node have both children */
+{
+  if (cur_node->o_char != NULL_CHAR)
+    {
+      code_tbl[cur_node->o_char].code = cur_code;
+      code_tbl[cur_node->o_char].size = cur_level;
+      return;
+    }
+  else
+    { 
+      traverse_tree(cur_node->left, code_tbl,
+		    cur_code | bit_set[cur_level],
+		    cur_level + 1, bit_set);
+	
+      traverse_tree(cur_node->right, code_tbl,
+		    cur_code, cur_level + 1, bit_set);
+    }
+}
+
+void
+tree_export_code(struct node_t * src_tree, struct hf_code * dest_code_tbl, int verbose)
+/* Export character codes from huffman tree to code table */
+{
+
+  int init_level = 0;
+  code_t init_code = 0;
+  
+  code_t bit_set[MAX_BIT_SET_SIZE]; /* array of bits with 2^i etc values, i -- index */ 
+  fill_bit_set(bit_set);
+
+  if (verbose)
+    print_bit_set(bit_set); 
+  
+  if (src_tree != NULL)
+    traverse_tree(src_tree, dest_code_tbl, init_code, init_level, bit_set);
+
+  if (verbose)
+    print_code_tbl(dest_code_tbl);
+}

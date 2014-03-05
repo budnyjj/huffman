@@ -7,7 +7,7 @@ init_heap(struct heap * h)
 {
   int i;
 
-  for (i = 0; i < MAX_HEAP_SIZE; i++)
+  for (i = 0; i < MAX_HEAP_SIZE; ++i)
     {
       h->data[i] = NULL;
     }
@@ -23,11 +23,11 @@ fill_heap(ppl_t * src_ppl, struct heap * dest)
   double total = 0;
 
   /* Calculate total number of characters */
-  for (i = 0; i < MAX_HEAP_SIZE; i++) 
+  for (i = 0; i < MAX_HEAP_SIZE; ++i) 
     total += src_ppl[i];
 
   heap_index = 0;
-  for (i = 0; i < MAX_HEAP_SIZE; i++)
+  for (i = 0; i < MAX_HEAP_SIZE; ++i)
     {
       if (src_ppl[i] > 0)
 	{
@@ -136,7 +136,7 @@ heap_extract_min(struct heap * h)
    and delete it from heap. */
 /* Return NULL if heap is empty. */
 {
-  if (h->size < 1)
+  if (h->size == 0)
     return NULL;
   
   struct node_t * min = h->data[0];

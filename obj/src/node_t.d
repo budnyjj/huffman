@@ -11,7 +11,7 @@ obj/./src/node_t.o: src/node_t.c /usr/include/stdc-predef.h \
  /usr/include/bits/select.h /usr/include/bits/sigset.h \
  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-float.h
+ /usr/include/bits/stdlib-float.h include/freq_t.h
 
 /usr/include/stdc-predef.h:
 
@@ -66,3 +66,5 @@ include/node_t.h:
 /usr/include/alloca.h:
 
 /usr/include/bits/stdlib-float.h:
+
+include/freq_t.h:

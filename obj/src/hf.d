@@ -18,7 +18,8 @@ obj/./src/hf.o: src/hf.c /usr/include/stdc-predef.h include/io.h \
  /usr/include/unistd.h /usr/include/bits/posix_opt.h \
  /usr/include/bits/environments.h /usr/include/bits/confname.h \
  /usr/include/getopt.h include/ppl.h include/ppl_t.h include/freq_tree.h \
- include/node_t.h include/freq_heap.h
+ include/node_t.h include/freq_t.h include/code_t.h include/code_tbl.h \
+ include/bit_set.h include/freq_heap.h
 
 /usr/include/stdc-predef.h:
 
@@ -105,5 +106,13 @@ include/ppl_t.h:
 include/freq_tree.h:
 
 include/node_t.h:
+
+include/freq_t.h:
+
+include/code_t.h:
+
+include/code_tbl.h:
+
+include/bit_set.h:
 
 include/freq_heap.h:
