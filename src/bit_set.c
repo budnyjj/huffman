@@ -2,16 +2,17 @@
 
 void 
 fill_bit_set(code_t * src_bit_set)
-/* Fill array of code_t with 2^i values, where i is array index. */
+/* Fill array of code_t with 2^i LSB values, where i is array index. */
 /* Assume that size of array is more than MAX_BIT_SET_SIZE */
 {
   int i;
-  code_t val = 1;
+  int size = sizeof(code_t);
+  code_t val = 1 << (size*8 - 1);
 
   for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
     {
       src_bit_set[i] = val;
-      val <<= 1;
+      val >>= 1;
     }
 }
 

@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#ifdef _WIN32
+
+#include <win/wingetopt.h>
+#include <win/unistd.h>
+
+#else
+
 #include <unistd.h>
 #include <getopt.h>
+
+#endif
 
 #ifndef _HF_IO_
 #define _HF_IO_

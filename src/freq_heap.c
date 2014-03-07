@@ -59,7 +59,7 @@ print_heap(struct heap * h)
 /* Core min heap functionality */
 /* See T. H. Cormen, C. E. Leiserson "Introduction to Algorithms" */
 
-inline void
+void
 swap(struct node_t * data[], int i, int j) 
 /* Swap pointers in heap data array */
 {
@@ -68,7 +68,7 @@ swap(struct node_t * data[], int i, int j)
   data[j] = n;
 }
 
-inline int
+int
 parent(int i)
 {
   if (i)
@@ -77,13 +77,13 @@ parent(int i)
     return 0;
 }
 
-inline int
+int
 left(int i)
 {
   return 2*i+1;
 }
 
-inline int
+int
 right(int i)
 {
   return (i+1)*2;
@@ -136,10 +136,12 @@ heap_extract_min(struct heap * h)
    and delete it from heap. */
 /* Return NULL if heap is empty. */
 {
+  struct node_t * min;
+  
   if (h->size == 0)
     return NULL;
   
-  struct node_t * min = h->data[0];
+  min = h->data[0];
   h->data[0] = h->data[(h->size)-1];
   h->data[(h->size)-1] = NULL;
   (h->size)--;

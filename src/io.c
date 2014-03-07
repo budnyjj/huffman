@@ -23,8 +23,11 @@ void
 get_options (int argc, char *argv[], struct io_options * options)
 {
   int next_option;
-  program_name = argv[0];
-  const char* const short_options = "chvx";
+  int num_files;
+  char * short_options = "chvx";
+
+#ifdef __linux__
+
   const struct option long_options[] =
     {
       {"help", no_argument, NULL, 'h' },
@@ -34,9 +37,23 @@ get_options (int argc, char *argv[], struct io_options * options)
       {NULL, 0, NULL, 0}
     };
 
+#endif
+
+  program_name = argv[0];
+
   while (1) {
-    next_option = getopt_long (argc, argv, short_options,
+
+
+#ifdef _WIN32
+
+	  next_option = getopt (argc, argv, short_options);
+
+#else
+
+	  next_option = getopt_long (argc, argv, short_options,
 			       long_options, NULL);
+
+#endif
 
     if (next_option == -1)
       break;
@@ -70,7 +87,7 @@ get_options (int argc, char *argv[], struct io_options * options)
       }
   }
 
-  int num_files = argc - optind;
+  num_files = argc - optind;
 
   if (num_files == 1)
     options->filename = argv[optind];

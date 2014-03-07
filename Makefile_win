@@ -1,0 +1,366 @@
+# Microsoft Developer Studio Generated NMAKE File, Based on huffman_win.dsp
+!IF "$(CFG)" == ""
+CFG=huffman_win - Win32 Debug
+!MESSAGE No configuration specified. Defaulting to huffman_win - Win32 Debug.
+!ENDIF 
+
+!IF "$(CFG)" != "huffman_win - Win32 Release" && "$(CFG)" != "huffman_win - Win32 Debug"
+!MESSAGE Invalid configuration "$(CFG)" specified.
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE 
+!MESSAGE NMAKE /f "huffman_win.mak" CFG="huffman_win - Win32 Debug"
+!MESSAGE 
+!MESSAGE Possible choices for configuration are:
+!MESSAGE 
+!MESSAGE "huffman_win - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "huffman_win - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE 
+!ERROR An invalid configuration is specified.
+!ENDIF 
+
+!IF "$(OS)" == "Windows_NT"
+NULL=
+!ELSE 
+NULL=nul
+!ENDIF 
+
+CPP=cl.exe
+RSC=rc.exe
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+OUTDIR=.\Release
+INTDIR=.\Release
+# Begin Custom Macros
+OutDir=.\Release
+# End Custom Macros
+
+ALL : "$(OUTDIR)\huffman_win.exe"
+
+
+CLEAN :
+	-@erase "$(INTDIR)\bit_set.obj"
+	-@erase "$(INTDIR)\code_tbl.obj"
+	-@erase "$(INTDIR)\freq_heap.obj"
+	-@erase "$(INTDIR)\freq_tree.obj"
+	-@erase "$(INTDIR)\hf.obj"
+	-@erase "$(INTDIR)\io.obj"
+	-@erase "$(INTDIR)\node_t.obj"
+	-@erase "$(INTDIR)\ppl.obj"
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\wingetopt.obj"
+	-@erase "$(OUTDIR)\huffman_win.exe"
+
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+CPP_PROJ=/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\huffman_win.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\huffman_win.bsc" 
+BSC32_SBRS= \
+	
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\huffman_win.pdb" /machine:I386 /out:"$(OUTDIR)\huffman_win.exe" 
+LINK32_OBJS= \
+	"$(INTDIR)\bit_set.obj" \
+	"$(INTDIR)\code_tbl.obj" \
+	"$(INTDIR)\freq_heap.obj" \
+	"$(INTDIR)\freq_tree.obj" \
+	"$(INTDIR)\hf.obj" \
+	"$(INTDIR)\io.obj" \
+	"$(INTDIR)\node_t.obj" \
+	"$(INTDIR)\ppl.obj" \
+	"$(INTDIR)\wingetopt.obj"
+
+"$(OUTDIR)\huffman_win.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+OUTDIR=.\Debug
+INTDIR=.\Debug
+
+# Begin Custom Macros
+OutDir=.\Debug
+# End Custom Macros
+
+ALL : "$(OUTDIR)\huffman_win.exe" "$(OUTDIR)\huffman_win.bsc"
+
+
+CLEAN :
+	-@erase "$(INTDIR)\bit_set.obj"
+	-@erase "$(INTDIR)\bit_set.sbr"
+	-@erase "$(INTDIR)\code_tbl.obj"
+	-@erase "$(INTDIR)\code_tbl.sbr"
+	-@erase "$(INTDIR)\freq_heap.obj"
+	-@erase "$(INTDIR)\freq_heap.sbr"
+	-@erase "$(INTDIR)\freq_tree.obj"
+	-@erase "$(INTDIR)\freq_tree.sbr"
+	-@erase "$(INTDIR)\hf.obj"
+	-@erase "$(INTDIR)\hf.sbr"
+	-@erase "$(INTDIR)\io.obj"
+	-@erase "$(INTDIR)\io.sbr"
+	-@erase "$(INTDIR)\node_t.obj"
+	-@erase "$(INTDIR)\node_t.sbr"
+	-@erase "$(INTDIR)\ppl.obj"
+	-@erase "$(INTDIR)\ppl.sbr"
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\wingetopt.obj"
+	-@erase "$(INTDIR)\wingetopt.sbr"
+	-@erase "$(OUTDIR)\huffman_win.bsc"
+	-@erase "$(OUTDIR)\huffman_win.exe"
+	-@erase "$(OUTDIR)\huffman_win.ilk"
+	-@erase "$(OUTDIR)\huffman_win.pdb"
+
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+CPP_PROJ=/nologo /MLd /W3 /Gm /GX /ZI /Od /I "include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\huffman_win.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ  /c 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\huffman_win.bsc" 
+BSC32_SBRS= \
+	"$(INTDIR)\bit_set.sbr" \
+	"$(INTDIR)\code_tbl.sbr" \
+	"$(INTDIR)\freq_heap.sbr" \
+	"$(INTDIR)\freq_tree.sbr" \
+	"$(INTDIR)\hf.sbr" \
+	"$(INTDIR)\io.sbr" \
+	"$(INTDIR)\node_t.sbr" \
+	"$(INTDIR)\ppl.sbr" \
+	"$(INTDIR)\wingetopt.sbr"
+
+"$(OUTDIR)\huffman_win.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
+    $(BSC32) @<<
+  $(BSC32_FLAGS) $(BSC32_SBRS)
+<<
+
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\huffman_win.pdb" /debug /machine:I386 /out:"$(OUTDIR)\huffman_win.exe" /pdbtype:sept 
+LINK32_OBJS= \
+	"$(INTDIR)\bit_set.obj" \
+	"$(INTDIR)\code_tbl.obj" \
+	"$(INTDIR)\freq_heap.obj" \
+	"$(INTDIR)\freq_tree.obj" \
+	"$(INTDIR)\hf.obj" \
+	"$(INTDIR)\io.obj" \
+	"$(INTDIR)\node_t.obj" \
+	"$(INTDIR)\ppl.obj" \
+	"$(INTDIR)\wingetopt.obj"
+
+"$(OUTDIR)\huffman_win.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ENDIF 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+
+!IF "$(NO_EXTERNAL_DEPS)" != "1"
+!IF EXISTS("huffman_win.dep")
+!INCLUDE "huffman_win.dep"
+!ELSE 
+!MESSAGE Warning: cannot find "huffman_win.dep"
+!ENDIF 
+!ENDIF 
+
+
+!IF "$(CFG)" == "huffman_win - Win32 Release" || "$(CFG)" == "huffman_win - Win32 Debug"
+SOURCE=.\src\bit_set.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\bit_set.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\bit_set.obj"	"$(INTDIR)\bit_set.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\code_tbl.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\code_tbl.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\code_tbl.obj"	"$(INTDIR)\code_tbl.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\freq_heap.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\freq_heap.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\freq_heap.obj"	"$(INTDIR)\freq_heap.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\freq_tree.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\freq_tree.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\freq_tree.obj"	"$(INTDIR)\freq_tree.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\hf.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\hf.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\hf.obj"	"$(INTDIR)\hf.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\io.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\io.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\io.obj"	"$(INTDIR)\io.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\node_t.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\node_t.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\node_t.obj"	"$(INTDIR)\node_t.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\ppl.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\ppl.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\ppl.obj"	"$(INTDIR)\ppl.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+SOURCE=.\src\wingetopt.c
+
+!IF  "$(CFG)" == "huffman_win - Win32 Release"
+
+
+"$(INTDIR)\wingetopt.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ELSEIF  "$(CFG)" == "huffman_win - Win32 Debug"
+
+
+"$(INTDIR)\wingetopt.obj"	"$(INTDIR)\wingetopt.sbr" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+!ENDIF 
+
+
+!ENDIF 
+
