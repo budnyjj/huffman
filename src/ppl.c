@@ -13,7 +13,7 @@ void
 get_ppl(FILE * source, ppl_t * dest_ppl)
 /* Calculate symbols popularity. */
 {
-  int c = 0;
+  int c;
 
   while ((c = fgetc(source)) != EOF)
     {

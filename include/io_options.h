@@ -18,7 +18,8 @@
 
 struct io_options {
   enum {CREATE, EXTRACT, NONE} command;
-  char* filename;
+  char* src_filename;
+  char* dest_filename;
   int verbose;
 };
 

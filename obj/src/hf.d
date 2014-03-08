@@ -1,4 +1,4 @@
-obj/./src/hf.o: src/hf.c /usr/include/stdc-predef.h include/io.h \
+obj/./src/hf.o: src/hf.c /usr/include/stdc-predef.h include/io_options.h \
  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h \
@@ -19,11 +19,11 @@ obj/./src/hf.o: src/hf.c /usr/include/stdc-predef.h include/io.h \
  /usr/include/bits/environments.h /usr/include/bits/confname.h \
  /usr/include/getopt.h include/ppl.h include/ppl_t.h include/freq_tree.h \
  include/node_t.h include/freq_t.h include/code_t.h include/code_tbl.h \
- include/bit_set.h include/freq_heap.h
+ include/bit_set.h include/freq_heap.h include/io_code.h
 
 /usr/include/stdc-predef.h:
 
-include/io.h:
+include/io_options.h:
 
 /usr/include/stdio.h:
 
@@ -116,3 +116,5 @@ include/code_tbl.h:
 include/bit_set.h:
 
 include/freq_heap.h:
+
+include/io_code.h:

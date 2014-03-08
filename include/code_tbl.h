@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <code_t.h>
+#include <bit_set.h>
 
 #ifndef _CODE_TABLE_
 #define _CODE_TABLE_
@@ -14,6 +14,9 @@ struct hf_code {
 
 extern void
 init_code_tbl(struct hf_code *);
+
+extern void
+print_code(int, struct hf_code);
 
 extern void 
 print_code_tbl(struct hf_code *);

@@ -1,4 +1,4 @@
-#include <io.h>
+#include <io_options.h>
 
 const char* program_name;
 
@@ -15,7 +15,8 @@ print_usage (FILE* stream)
 void
 init_options(struct io_options * opts) {
   opts->command = NONE;
-  opts->filename = NULL;
+  opts->src_filename = NULL;
+  opts->dest_filename = NULL;
   opts->verbose = 0;
 }
 
@@ -30,7 +31,7 @@ get_options (int argc, char *argv[], struct io_options * options)
 
   const struct option long_options[] =
     {
-      {"help", no_argument, NULL, 'h' },
+      {"help", no_argument, NULL, 'h'},
       {"create", no_argument, NULL, 'c'},
       {"extract", no_argument, NULL, 'x'},
       {"verbose", no_argument, NULL, 'v'},
@@ -46,11 +47,11 @@ get_options (int argc, char *argv[], struct io_options * options)
 
 #ifdef _WIN32
 
-	  next_option = getopt (argc, argv, short_options);
+    next_option = getopt (argc, argv, short_options);
 
 #else
 
-	  next_option = getopt_long (argc, argv, short_options,
+    next_option = getopt_long (argc, argv, short_options,
 			       long_options, NULL);
 
 #endif
@@ -90,7 +91,7 @@ get_options (int argc, char *argv[], struct io_options * options)
   num_files = argc - optind;
 
   if (num_files == 1)
-    options->filename = argv[optind];
+    options->src_filename = argv[optind];
   else if (num_files > 1)
     {
       fprintf(stderr,
@@ -111,8 +112,8 @@ check_options(struct io_options * options)
       exit(1);
     }
 
-  if ((options->filename != NULL) &&
-      (access(options->filename, R_OK) == -1))
+  if ((options->src_filename != NULL) &&
+      (access(options->src_filename, R_OK) == -1))
     {
       fprintf(stderr, "Please specify existing file!\n");
       exit(1);

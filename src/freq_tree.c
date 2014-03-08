@@ -59,8 +59,8 @@ tree_export_code(struct node_t * src_tree, struct hf_code * dest_code_tbl, int v
   int init_level = 0;
   code_t init_code = 0;
   
-  code_t bit_set[MAX_BIT_SET_SIZE]; /* array of bits with 2^i etc values, i -- index */ 
-  fill_bit_set(bit_set);
+  code_t bit_set[MAX_BIT_SET_SIZE]; /* array of bits with 2^i LSB values, i -- index */ 
+  fill_bit_set_pos(bit_set);
 
   if (verbose)
     print_bit_set(bit_set); 

@@ -1,7 +1,7 @@
-obj/./src/io.o: src/io.c /usr/include/stdc-predef.h include/io.h \
- /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
- /usr/include/gnu/stubs-64.h \
+obj/./src/io_options.o: src/io_options.c /usr/include/stdc-predef.h \
+ include/io_options.h /usr/include/stdio.h /usr/include/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include/stddef.h \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
@@ -21,7 +21,7 @@ obj/./src/io.o: src/io.c /usr/include/stdc-predef.h include/io.h \
 
 /usr/include/stdc-predef.h:
 
-include/io.h:
+include/io_options.h:
 
 /usr/include/stdio.h:
 
