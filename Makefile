@@ -31,6 +31,8 @@ $(OBJDIR)/%.o: %.c
 
 clean:
 	$(RM) -r $(OBJDIR)
+	$(RM) $(shell find . -name '*~')
+	$(RM) $(shell find . -name '.\#*')
 
 distclean: clean
 	$(RM) $(APP)

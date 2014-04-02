@@ -1,39 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifdef _WIN32 /* windows */
+
+#include <win/wingetopt.h>
+#include <win/unistd.h>
+
+#else /* GNU */
+
+#include <unistd.h>
+#include <getopt.h>
+
+#endif
+
+#include <p_utils.h>
 #include <io_options.h>
 
 const char* program_name;
 
-void 
+static void
 print_usage (FILE* stream)
 {
-  fprintf (stream, "Usage: %s [COMMAND...] [FILENAME]\n", program_name);
-  fprintf (stream,
-	   " -h --help\t Display this help message\n"
-	   " -c --create\t Create a new archive\n"
-	   " -v --verbose\t Display info and debug messages\n");
+
+#ifdef _WIN32 /* windows */
+  const char * usage_msg =
+    " -c DEST_FILENAME  "
+    "Create a new archive and store it in DEST_FILENAME\n"
+    " -x DEST_FILENAME  "
+    "Extract an existing archive to DEST_FILENAME\n"
+    " -h                "
+    "Display this help message\n"
+    " -v                "
+    "Display info messages\n"
+    " -d                "
+    "Display debug messages\n";
+
+#else /* GNU */
+
+  const char * usage_msg =
+    " -c --create DEST_FILENAME   "
+    "Create a new archive and store it in DEST_FILENAME\n"
+    " -x --extract DEST_FILENAME  "
+    "Extract an existing archive to DEST_FILENAME\n"
+    " -h --help                   "
+    "Display this help message\n"
+    " -v --verbose                "
+    "Display info messages\n"
+    " -d --debug                  "
+    "Display debug messages\n";
+
+#endif
+
+  fprintf (stream, "Usage: %s [COMMAND...] [SRC_FILENAME]\n", program_name);
+  fprintf (stream, usage_msg);
 }
 
-void
-init_options(struct io_options * opts) {
+static void
+init_options(struct io_options *const opts)
+/* Initialize options structure with default values */
+{
   opts->command = NONE;
   opts->src_filename = NULL;
   opts->dest_filename = NULL;
-  opts->verbose = 0;
+  opts->verbose = QUIET;
 }
 
-void
-get_options (int argc, char *argv[], struct io_options * options)
+static void
+cli_get_options (int argc, char *const * argv,
+             struct io_options *const options)
 {
-  int next_option;
+  int next_option = -1;
   int num_files;
-  char * short_options = "chvx";
+  char * short_options = "c:dhvx:";
 
 #ifdef __linux__
 
   const struct option long_options[] =
     {
+      {"create", required_argument, NULL, 'c'},
+      {"debug", required_argument, NULL, 'd'},
       {"help", no_argument, NULL, 'h'},
-      {"create", no_argument, NULL, 'c'},
-      {"extract", no_argument, NULL, 'x'},
+      {"extract", required_argument, NULL, 'x'},
       {"verbose", no_argument, NULL, 'v'},
       {NULL, 0, NULL, 0}
     };
@@ -47,12 +94,12 @@ get_options (int argc, char *argv[], struct io_options * options)
 
 #ifdef _WIN32
 
-    next_option = getopt (argc, argv, short_options);
+    next_option = getopt(argc, argv, short_options);
 
 #else
 
-    next_option = getopt_long (argc, argv, short_options,
-			       long_options, NULL);
+    next_option = getopt_long(argc, argv, short_options,
+                               long_options, NULL);
 
 #endif
 
@@ -62,29 +109,59 @@ get_options (int argc, char *argv[], struct io_options * options)
     switch (next_option)
       {
       case 'c':
-	options->command = CREATE;
-	break;
-
-      case 'h': 
-	{
-	  print_usage (stdout);
-	  exit(0);
-	}
+        {
+          if (options->command == NONE)
+            {
+              options->command = CREATE;
+              options->dest_filename = optarg;
+            }
+          else
+            {
+              fprintf(stderr,
+                      "Please specify only one COMMAND!\n");
+              print_usage (stderr);
+              exit(1);
+            }
+          break;
+        }
+      case 'd':
+        {
+          options->verbose = DEBUG;
+          break;
+        }
+      case 'h':
+        {
+          print_usage (stdout);
+          exit(0);
+        }
       case 'v':
-	options->verbose = 1;
-	break;
-
+        {
+          options->verbose = INFO;
+          break;
+        }
       case 'x':
-	options->command = EXTRACT;
-	break;
-
+        {
+          if (options->command == NONE)
+            {
+              options->command = EXTRACT;
+              options->dest_filename = optarg;
+            }
+          else /* already specified command */
+            {
+              fprintf(stderr,
+                      "Please specify only one COMMAND!\n");
+              print_usage (stderr);
+              exit(1);
+            }
+          break;
+        }
       case '?': /* invalid option */
-	{
-	  print_usage(stderr);
-	  exit(1);
-	}
+        {
+          print_usage(stderr);
+          exit(1);
+        }
       default:
-	abort (); /* smth else */
+        abort (); /* smth else */
       }
   }
 
@@ -95,36 +172,62 @@ get_options (int argc, char *argv[], struct io_options * options)
   else if (num_files > 1)
     {
       fprintf(stderr,
-	      "This program cannot work with "
-	      "more than one file per launch!\n");
+              "This program cannot work with "
+              "more than one file per launch!\n");
       print_usage(stderr);
       exit(1);
     }
 }
 
-void 
-check_options(struct io_options * options)
+static int
+get_file_size(const char *const filename)
 {
-  if (options->command == NONE) 
+  int file_size = 0;
+
+  FILE* f = fopen(filename, "r");
+
+  fseek(f, 0, SEEK_END);
+  file_size = ftell(f);
+
+  fclose(f);
+
+  return file_size;
+}
+
+static void
+check_options(const struct io_options *const options)
+{
+  if (options->command == NONE)
     {
       fprintf(stderr, "Please specify COMMAND!\n");
       print_usage(stderr);
       exit(1);
     }
 
-  if ((options->src_filename != NULL) &&
-      (access(options->src_filename, R_OK) == -1))
+  if (options->src_filename != NULL)
     {
-      fprintf(stderr, "Please specify existing file!\n");
-      exit(1);
+      if (access(options->src_filename, R_OK) == -1) /* non-existing src*/
+        {
+          fprintf(stderr, "Please specify existing file!\n");
+          exit(1);
+        }
+      if (!get_file_size(options->src_filename)) /* src is empty */
+        {
+          fprintf(stderr, "Please specify non-empty file!\n");
+          exit(1);
+        }
     }
+
 }
 
 void
-io_get_options(int argc, char *argv[], struct io_options * dest_opts)
+get_options(int argc, char ** argv,
+               struct io_options *const dest_opts)
 {
+  CHKPTR(argv);
+  CHKPTR(dest_opts);
+
   init_options(dest_opts);
-  get_options(argc, argv, dest_opts);
+  cli_get_options(argc, argv, dest_opts);
   check_options(dest_opts);
 }
-

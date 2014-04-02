@@ -28,3 +28,5 @@ out/*
 *.exe
 *.out
 *.app
+
+task/*

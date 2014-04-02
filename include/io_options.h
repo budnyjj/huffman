@@ -1,29 +1,18 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef _IO_OPTIONS_
+#define _IO_OPTIONS_
 
-#ifdef _WIN32
-
-#include <win/wingetopt.h>
-#include <win/unistd.h>
-
-#else
-
-#include <unistd.h>
-#include <getopt.h>
-
-#endif
-
-#ifndef _HF_IO_
-#define _HF_IO_
+#include <command_t.h>
+#include <verbosity_t.h>
 
 struct io_options {
-  enum {CREATE, EXTRACT, NONE} command;
-  char* src_filename;
-  char* dest_filename;
-  int verbose;
+  command_t command;
+  char * src_filename;
+  char * dest_filename;
+  verbosity_t verbose;
 };
 
-extern void
-io_get_options(int argc, char *argv[], struct io_options *);
+void
+get_options(int argc, char ** argv,
+            struct io_options *const dest_opts);
 
 #endif

@@ -1,11 +1,12 @@
+#include <stdio.h>
 #include <bit_set.h>
 
-void 
+void
 fill_bit_set_pos(code_t * src_bit_set)
 /* Fill array of code_t with 2^i LSB values, where i is array index. */
 /* Assume that size of array is more than MAX_BIT_SET_SIZE. */
-/* Example: 
-   1000000000... 
+/* Example:
+   1000000000...
    0100000000...
    0010000000... etc. */
 {
@@ -18,23 +19,6 @@ fill_bit_set_pos(code_t * src_bit_set)
       src_bit_set[i] = val;
       val >>= 1;
     }
-}
-
-void 
-fill_bit_set_triangle(code_t * src_bit_set)
-/* Fill array of code_t with (2^(i+1))-1 LSB values, where i is array index. */
-/* Assume that size of array is more than MAX_BIT_SET_SIZE. */
-/* Example: 
-   1000000000... 
-   1100000000...
-   1110000000... etc.*/
-{
-  int i;
-
-  fill_bit_set_pos(src_bit_set);
-
-  for (i = 1; i < MAX_BIT_SET_SIZE; ++i)
-    src_bit_set[i] |= src_bit_set[i-1];
 }
 
 void
@@ -52,7 +36,7 @@ print_bits(code_t bits)
     }
 }
 
-void 
+void
 print_bit_set(code_t * bit_set)
 /* Assume that size of array is more than MAX_BIT_SET_SIZE */
 {
@@ -60,7 +44,7 @@ print_bit_set(code_t * bit_set)
 
   puts("=== BITSET ===");
 
-  for (i = 0; i < MAX_BIT_SET_SIZE; ++i) 
+  for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
     {
       print_bits(bit_set[i]);
       printf("\n");

@@ -1,7 +1,7 @@
-obj/./src/freq_heap.o: src/freq_heap.c /usr/include/stdc-predef.h \
- include/freq_heap.h /usr/include/stdlib.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
- /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+obj/./src/ppl_heap.o: src/ppl_heap.c /usr/include/stdc-predef.h \
+ /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include/stddef.h \
  /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
  /usr/include/endian.h /usr/include/bits/endian.h \
@@ -15,11 +15,9 @@ obj/./src/freq_heap.o: src/freq_heap.c /usr/include/stdc-predef.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- include/ppl_t.h include/node_t.h include/freq_t.h
+ include/ppl_heap.h include/ppl_t.h include/node_t.h include/p_utils.h
 
 /usr/include/stdc-predef.h:
-
-include/freq_heap.h:
 
 /usr/include/stdlib.h:
 
@@ -85,8 +83,10 @@ include/freq_heap.h:
 
 /usr/include/bits/sys_errlist.h:
 
+include/ppl_heap.h:
+
 include/ppl_t.h:
 
 include/node_t.h:
 
-include/freq_t.h:
+include/p_utils.h:

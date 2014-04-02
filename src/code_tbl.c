@@ -1,19 +1,9 @@
+#include <stdio.h>
 #include <code_tbl.h>
+#include <p_utils.h>
 
-void
-init_code_tbl(struct hf_code * tbl)
-/* Fill tbl with zero values. */
-{
-  int i;
-
-  for (i = 0; i < MAX_CODE_TBL_SIZE; ++i)
-    {
-      tbl[i].code = 0;
-      tbl[i].size = CODE_NOT_EXISTS;
-    }
-}
-
-void print_code(int character, struct hf_code code)
+static void 
+print_code(int character, struct hf_code code)
 /* Print huffman code properties assigned to character */
 {
   printf("%c: %4d: ", character, code.size);
@@ -22,11 +12,13 @@ void print_code(int character, struct hf_code code)
 }
 
 void 
-print_code_tbl(struct hf_code * tbl)
+print_code_tbl(const struct hf_code *const tbl)
 /* Print content of code table */
 {
   int i;
 
+  CHKPTR(tbl);
+  
   puts("=== TABLE OF ASSIGNED HUFFMAN CODES ===");
 
   for (i = 0; i < MAX_CODE_TBL_SIZE; ++i)

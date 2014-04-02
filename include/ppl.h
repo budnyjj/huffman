@@ -1,15 +1,23 @@
-#include <stdio.h>
-#include <ppl_t.h>
-
 #ifndef _HF_FREQ_
 #define _HF_FREQ_
 
+#include <ppl_t.h>
+#include <verbosity_t.h>
+
 #define MAX_PPL_SIZE 256
 
-extern void
-calculate_ppl(char *, ppl_t *, int);
+ppl_t
+calculate_ppl(FILE* src, ppl_t *const dest_ppl,
+              verbosity_t verbose);
 
-extern void
-print_ppl(ppl_t *);
+long int
+read_ppl(FILE* src, ppl_t *const dest_ppl,
+         int num_code, verbosity_t verbose);
+
+int
+write_ppl(const ppl_t *const src_ppl, FILE* dest);
+
+int 
+char_with_max_ppl(const ppl_t *const src_ppl);
 
 #endif
