@@ -22,6 +22,10 @@ read_data(FILE* src, FILE* dest,
   code_t bit_set[MAX_BIT_SET_SIZE];
   const struct node_t * cur_node = ppl_tree;
 
+  CHKPTR(src);
+  CHKPTR(dest);
+  CHKPTR(ppl_tree);
+
   fill_bit_set_pos(bit_set);
   clear_code_buffer(code_buffer);
 
@@ -89,67 +93,40 @@ read_archive(const char* src_fname, const char* dest_fname,
              verbosity_t verbose) 
 /* Read and decompress data from src and store it in dest */
 {
-  if (src_fname)
-    {
-      FILE* src_file = fopen(src_fname, "rb");
-      fseek(src_file, data_offset, SEEK_SET);
+  FILE* src_file = NULL;
+  FILE* dest_file = NULL;
+  
+  src_file = fopen(src_fname, "rb");
+  fseek(src_file, data_offset, SEEK_SET);
 
-      if (dest_fname)
-        {
-          FILE* dest_file = fopen(dest_fname, "w");
-          read_data(src_file, dest_file,
-                    ppl_tree, archive_info, verbose);
-          fclose(dest_file);
-        }
-      else
-        {
-          read_data(src_file, stdout,
-                    ppl_tree, archive_info, verbose);
-        }
-      fclose(src_file);
-    }
-  else
-    {
-      fseek(stdin, data_offset, SEEK_SET);
 
-      if (dest_fname)
-        {
-          FILE* dest_file = fopen(dest_fname, "w");
-          read_data(stdin, dest_file,
-                       ppl_tree, archive_info, verbose);
-          fclose(dest_file);
-        }
-      else
-        {
-          read_data(stdin, stdout,
-                       ppl_tree, archive_info, verbose);
-        }
-    }
+  dest_file = fopen(dest_fname, "w");
+  read_data(src_file, dest_file,
+            ppl_tree, archive_info, verbose);
+  fclose(dest_file);
+  dest_file = NULL;
+
+  fclose(src_file);
+  src_file = NULL;
 }
 
 void
 read_single_char(const ppl_t *const src_ppl,
-                      const char *const dest_fname,
-                      long int num_char)
+                 const char *const dest_fname,
+                 long int num_char)
 {
-  CHKPTR(src_ppl);
-
   int i, single_char;
+
+  CHKPTR(src_ppl);
+  CHKPTR(dest_fname);
+
   single_char = char_with_max_ppl(src_ppl);
 
-  if (dest_fname)
-    {
-      FILE* dest_file = fopen(dest_fname, "w");
-      for (i = 0; i < num_char; i++)
-        fputc(single_char, dest_file);
+  FILE* dest_file = fopen(dest_fname, "w");
+  for (i = 0; i < num_char; i++)
+    fputc(single_char, dest_file);
 
-      fclose(dest_file);
-    }
-  else
-    {
-      for (i = 0; i < num_char; i++)
-        fputc(single_char, stdout);
-    }
+  fclose(dest_file);
 }
 
 int
@@ -162,20 +139,16 @@ decompress(const char *const src_fname,
   ppl_t char_ppl[MAX_PPL_SIZE] = {0};
   struct header_t archive_info = {0, 0, 0}; /* contains info about archive */
   long int data_offset = 0;
+  FILE* src_file = NULL;
 
-  if (src_fname)
-    {
-      FILE* src_file = fopen(src_fname, "r");
-      fread(&archive_info, sizeof(archive_info), 1, src_file);
-      data_offset = read_ppl(src_file, char_ppl, archive_info.num_code, verbose);
-      fclose(src_file);
-    }
-  else
-    {
-      fread(&archive_info, sizeof(archive_info), 1, stdin);
+  CHKPTR(src_fname);
+  CHKPTR(dest_fname);
 
-      data_offset = read_ppl(stdin, char_ppl, archive_info.num_code, verbose);
-    }
+  src_file = fopen(src_fname, "r");
+  fread(&archive_info, sizeof(archive_info), 1, src_file);
+  data_offset = read_ppl(src_file, char_ppl, archive_info.num_code, verbose);
+  fclose(src_file);
+  src_file = NULL;
 
   if (verbose == DEBUG)
     {

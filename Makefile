@@ -8,7 +8,7 @@ SRCDIRS := $(shell find . -name '*.c' -exec dirname {} \; | uniq)
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 
-DEBUG = -g
+DEBUG = -g 
 INCLUDES = -I./include
 CFLAGS = $(DEBUG) -Wall $(INCLUDES) -c
 LDFLAGS =

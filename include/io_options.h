@@ -11,7 +11,7 @@ struct io_options {
   verbosity_t verbose;
 };
 
-void
+int
 get_options(int argc, char ** argv,
             struct io_options *const dest_opts);
 

@@ -26,10 +26,7 @@ int	optopt;
 char	*optarg;
 
 int
-getopt(argc, argv, opts)
-     int	argc;
-     char	**argv;
-	 char * opts;
+getopt(int argc, char *const * argv, char * opts)
 {
   static int sp = 1;
   register int c;

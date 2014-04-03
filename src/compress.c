@@ -23,6 +23,12 @@ write_data(FILE* src, FILE* dest,
   int max_offset = sizeof(code_t)*8;
 
   code_t code_buffer[CODE_BUFFER_SIZE];
+
+  CHKPTR(src);
+  CHKPTR(dest);
+  CHKPTR(code_tbl);
+  CHKPTR(archive_info);
+
   clear_code_buffer(code_buffer);
 
   archive_info->buffer_size = CODE_BUFFER_SIZE;
@@ -30,23 +36,6 @@ write_data(FILE* src, FILE* dest,
   while ((ch = fgetc(src)) != EOF)
     {
       int code_size = code_tbl[ch].size;
-
-      /* printf("CURRENT CHAR: %c\n", ch); */
-      /* printf("CURRENT CODE: "); */
-      /* print_bits(code_tbl[ch].code); */
-      /* printf("\n"); */
-
-      /* printf("=== INIT STATE OF OUTPUT BUFFER ===\n");  */
-
-      /* printf("cur_buf_index: %d\n", cur_buf_index); */
-      /* printf("cur_offset: %d\n", cur_offset); */
-      /* printf("sz=%3d: ", cur_offset); */
-      /* print_bits(code_buffer[0]); */
-      /* printf(" "); */
-      /* print_bits(code_buffer[1]); */
-      /* printf("\n"); */
-
-      /* printf("========================================\n"); */
 
       code_buffer[cur_buf_index] |= (code_tbl[ch].code >> cur_offset);
 
@@ -64,67 +53,22 @@ write_data(FILE* src, FILE* dest,
 	      cur_buf_index++;
 	    }
 	  else
-	    /* end of buffer, we need to write compressed data to dest write rest to beginning */
+	    /* end of buffer, we need to write compressed data
+               to dest write rest to beginning */
 	    {
-              /* printf("BUFFER IS FULL! WRITE TO FILE\n"); */
-              /* write to dest */
               fwrite(code_buffer, sizeof(code_t), CODE_BUFFER_SIZE, dest); 
       
-	      clear_code_buffer(code_buffer); /* clear buffer */
+	      clear_code_buffer(code_buffer); 
 	      cur_buf_index = 0; /* reset index */
-
-              /* printf("=== CURRENT STATE OF OUTPUT BUFFER ===\n");  */
-
-              /* printf("cur_buf_index: %d\n", cur_buf_index); */
-              /* printf("cur_offset: %d\n", cur_offset); */
-
-              /* printf("sz=%3d: ", cur_offset); */
-              /* print_bits(code_buffer[0]); */
-              /* printf(" "); */
-              /* print_bits(code_buffer[1]); */
-              /* printf("\n"); */
-
-              /* printf("========================================\n\n"); */
-
 	    }
-
 	  code_buffer[cur_buf_index] |= (code_tbl[ch].code << (max_offset - cur_offset));
 	  cur_offset -= (max_offset - code_size);
 	}
-
-      /* printf("=== END STATE OF OUTPUT BUFFER ===\n");  */
-
-      /* printf("cur_buf_index: %d\n", cur_buf_index); */
-      /* printf("cur_offset: %d\n", cur_offset); */
-
-      /* printf("sz=%3d: ", cur_offset); */
-      /* print_bits(code_buffer[0]); */
-      /* printf(" "); */
-      /* print_bits(code_buffer[1]); */
-      /* printf("\n"); */
-
-      /* printf("========================================\n\n"); */
-
     }
   if (cur_offset || cur_buf_index) /* we need to write rest to file */
     {
-      /* printf("END OF INPUT! WRITE REST TO FILE\n"); */
-      fwrite(code_buffer, sizeof(code_t), cur_buf_index + 1, dest); /* write to dest */
-      
-      clear_code_buffer(code_buffer); /* clear buffer */
-
-      /* printf("=== CURRENT STATE OF OUTPUT BUFFER ===\n");  */
-
-      /* printf("cur_buf_index: %d\n", cur_buf_index); */
-      /* printf("cur_offset: %d\n", cur_offset); */
-
-      /* printf("sz=%3d: ", cur_offset); */
-      /* print_bits(code_buffer[0]); */
-      /* printf(" "); */
-      /* print_bits(code_buffer[1]); */
-      /* printf("\n"); */
-
-      /* printf("========================================\n\n"); */
+      fwrite(code_buffer, sizeof(code_t), cur_buf_index + 1, dest);    
+      clear_code_buffer(code_buffer);
     }  
  
   if (verbose == DEBUG)
@@ -141,100 +85,54 @@ write_archive(const char *const src_fname, const char *const dest_fname,
 /* Compress and write src contents to dest */
 /* Return 1 if succeed, 0 otherwise */
 {
-  if (dest_fname)
-    {
-      FILE* dest_file = fopen(dest_fname, "wb");
+  FILE* src_file = NULL;
+  FILE* dest_file = fopen(dest_fname, "wb");
 
-      if (verbose == DEBUG)
-          printf("HEADER INFO POSITION: %ld\n", ftell(dest_file));
+  CHKPTR(char_ppl);
+  CHKPTR(char_code);
 
-      /* Reserve place for header at the beginning of dest_file */
-      fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
+  if (verbose == DEBUG)
+    printf("HEADER INFO POSITION: %ld\n", ftell(dest_file));
+
+  /* Reserve place for header at the beginning of dest_file */
+  fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
       
-      if (verbose == DEBUG)
-        printf("BEGIN OF HUFFMAN CODES POSITION: %ld\n", ftell(dest_file));
+  if (verbose == DEBUG)
+    printf("BEGIN OF HUFFMAN CODES POSITION: %ld\n", ftell(dest_file));
 
-      archive_info.num_code = write_ppl(char_ppl, dest_file);
-      if (!archive_info.num_code)
-        {
-           fprintf(stderr, "Can't export character popularity to archive!\n");
-           fclose(dest_file);
-           return 0;
-      }
+  archive_info.num_code = write_ppl(char_ppl, dest_file);
 
-     if (verbose == DEBUG)
-        printf("BEGIN OF ENCODED CHARACTERS POSITION: %ld\n", ftell(dest_file));
-
-      if (src_fname)
-        {
-          FILE* src_file = fopen(src_fname, "r");
-          write_data(src_file, dest_file, char_code, &archive_info, verbose);
-          fclose(src_file);
-        }
-      else
-        {
-          write_data(stdin, dest_file, char_code, &archive_info, verbose);
-        }
-
-      if (verbose == DEBUG)
-        {
-           printf("=== ARCHIVE INFO ===\n");
-           printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);
-           printf("NUMBER OF CODES: %d\n", archive_info.num_code);
-           printf("CODE BUFFER SIZE: %d\n", archive_info.buffer_size);
-           printf("OFFSET IN LAST BYTE: %d\n", archive_info.last_offset);
-        }
-
-      /* Update header info at the beginning of dest_file */
-      fseek(dest_file, 0, SEEK_SET);
-      fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
-
-      fclose(dest_file);
-    }
-  else
+  if (!archive_info.num_code)
     {
-      if (verbose == DEBUG)
-        printf("HEADER INFO POSITION: %ld\n", ftell(stdout));
-
-      /* Reserve place for header at the beginning of dest */
-      fwrite(&archive_info, sizeof(archive_info), 1, stdout);
-
-      if (verbose == DEBUG)
-        printf("BEGIN OF HUFFMAN CODES POSITION: %ld\n", ftell(stdout));
-
-      archive_info.num_code = write_ppl(char_ppl, stdout);
-      if (!archive_info.num_code)
-        {
-           fprintf(stderr, "Can't export character popularity to archive!\n");
-           return 0;
-        }
-
-     if (verbose == DEBUG)
-        printf("BEGIN OF ENCODED CHARACTERS POSITION: %ld\n", ftell(stdout));
-
-      if (src_fname)
-        {
-          FILE* src_file = fopen(src_fname, "r");
-          write_data(src_file, stdout, char_code, &archive_info, verbose);
-          fclose(src_file);
-        }
-      else
-        {
-          write_data(stdin, stdout, char_code, &archive_info, verbose);
-        }
-
-      if (verbose == DEBUG)
-        {
-           printf("=== ARCHIVE INFO ===\n");
-           printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);
-           printf("NUMBER OF CODES: %d\n", archive_info.num_code);
-           printf("OFFSET IN LAST BYTE: %d\n", archive_info.last_offset);
-        }
-
-      /* Update header info at the beginning of dest_file */
-      fseek(stdout, 0, SEEK_SET);
-      fwrite(&archive_info, sizeof(archive_info), 1, stdout);
+      fprintf(stderr, "Can't export character popularity to archive!\n");
+      fclose(dest_file);
+      return 0;
     }
+
+  if (verbose == DEBUG)
+    printf("BEGIN OF ENCODED CHARACTERS POSITION: %ld\n", ftell(dest_file));
+
+  src_file = fopen(src_fname, "r");
+  write_data(src_file, dest_file, char_code, &archive_info, verbose);
+  fclose(src_file);
+  src_file = NULL;
+
+  if (verbose == DEBUG)
+    {
+      printf("=== ARCHIVE INFO ===\n");
+      printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);
+      printf("NUMBER OF CODES: %d\n", archive_info.num_code);
+      printf("CODE BUFFER SIZE: %d\n", archive_info.buffer_size);
+      printf("OFFSET IN LAST BYTE: %d\n", archive_info.last_offset);
+    }
+
+  /* Update header info at the beginning of dest_file */
+  fseek(dest_file, 0, SEEK_SET);
+  fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
+
+  fclose(dest_file);
+  dest_file = NULL;
+
   return 1;
 }
 
@@ -248,15 +146,15 @@ compress(const char *const src_fname,
   struct hf_code char_code[MAX_CODE_TBL_SIZE] = {{0, CODE_NOT_EXISTS}};
   struct header_t archive_info = {0}; /* contains info about archive */
 
-  if (src_fname)
-    {
-      FILE* src_file = fopen(src_fname, "r");
-      archive_info.num_char = calculate_ppl(src_file, char_ppl, verbose);
-      fclose(src_file);
-    }
-  else
-      archive_info.num_char = calculate_ppl(stdin, char_ppl, verbose);
+  FILE* src_file = NULL;
 
+  CHKPTR(src_fname);
+  CHKPTR(dest_fname);
+  
+  src_file = fopen(src_fname, "r");
+  archive_info.num_char = calculate_ppl(src_file, char_ppl, verbose);
+  fclose(src_file);
+  
   if (!archive_info.num_char)
     {
       fprintf(stderr, "Can't read source!\n");
@@ -264,16 +162,18 @@ compress(const char *const src_fname,
     }
 
   ppl_tree = build_tree(char_ppl, verbose);
+
   if (!ppl_tree)
     {
       fprintf(stderr, "Error of memory allocation!\n");
       return 0;
     }
+
   tree_export_code(ppl_tree, char_code, verbose);
   clear_tree(ppl_tree);
 
   return write_archive(src_fname, dest_fname,
-                         char_ppl, char_code,
-                         archive_info, verbose);
+                       char_ppl, char_code,
+                       archive_info, verbose);
 }
 

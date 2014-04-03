@@ -10,7 +10,8 @@ main (int argc, char *argv[])
 {
 
   struct io_options options;
-  get_options(argc, argv, &options);
+  if (!get_options(argc, argv, &options))
+    exit(1);
 
   switch (options.command) 
     {

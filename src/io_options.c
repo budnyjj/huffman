@@ -194,33 +194,44 @@ get_file_size(const char *const filename)
   return file_size;
 }
 
-static void
+static int
 check_options(const struct io_options *const options)
 {
   if (options->command == NONE)
     {
       fprintf(stderr, "Please specify COMMAND!\n");
       print_usage(stderr);
-      exit(1);
+      return 0;
     }
 
-  if (options->src_filename != NULL)
+  if (options->src_filename == NULL)
     {
-      if (access(options->src_filename, R_OK) == -1) /* non-existing src*/
-        {
-          fprintf(stderr, "Please specify existing file!\n");
-          exit(1);
-        }
-      if (!get_file_size(options->src_filename)) /* src is empty */
-        {
-          fprintf(stderr, "Please specify non-empty file!\n");
-          exit(1);
-        }
+      fprintf(stderr, "Please specify source file!\n");
+      return 0;
     }
 
+  if (options->src_filename == NULL)
+    {
+      fprintf(stderr, "Please specify destiantion file!\n");
+      return 0;
+    }
+  
+  if (access(options->src_filename, R_OK) == -1) /* non-existing src*/
+    {
+      fprintf(stderr, "Please specify existing source file!\n");
+      return 0;
+    }
+
+  if (!get_file_size(options->src_filename)) /* src is empty */
+    {
+      fprintf(stderr, "Please specify non-empty source file!\n");
+      return 0;
+    }
+
+  return 1;
 }
 
-void
+int
 get_options(int argc, char ** argv,
                struct io_options *const dest_opts)
 {
@@ -229,5 +240,5 @@ get_options(int argc, char ** argv,
 
   init_options(dest_opts);
   cli_get_options(argc, argv, dest_opts);
-  check_options(dest_opts);
+  return check_options(dest_opts);
 }
