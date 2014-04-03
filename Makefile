@@ -52,3 +52,6 @@ ifneq "$(MAKECMDGOALS)" "clean"
 -include $(DEPS)
 endif
 endif
+
+test:
+	$(MAKE) -C tests

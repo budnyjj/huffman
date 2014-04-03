@@ -7,7 +7,13 @@ compilation
 -----------
 
 ```bash
-make;
+make; 
+```
+
+tests
+-----
+```
+make test
 ```
 
 usage

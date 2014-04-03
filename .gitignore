@@ -30,3 +30,5 @@ out/*
 *.app
 
 task/*
+tests/out/*
+tests/diff/*
