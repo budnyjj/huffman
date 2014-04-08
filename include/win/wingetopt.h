@@ -1,14 +1,14 @@
-/*
-POSIX getopt for Windows
+/**
+   @file wingetopt.h
+   @brief POSIX getopt for Windows
 
-AT&T Public License
+   POSIX getopt for Windows
 
-Code given out at the 1985 UNIFORUM conference in Dallas.  
+   AT&T Public License
+
+   Code given out at the 1985 UNIFORUM conference in Dallas.  
 */
 
-#ifdef __GNUC__
-#include <getopt.h>
-#endif
 #ifndef __GNUC__
 
 #ifndef _WINGETOPT_H_

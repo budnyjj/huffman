@@ -6,8 +6,6 @@
 
 void
 init_heap(struct heap *const h)
-/* Fill heap with null values. */
-/* Set heap size to 0. */
 {
   int i;
 
@@ -36,15 +34,12 @@ clear_heap(struct heap *const h, int max_index)
 }
 
 int
-fill_heap(const ppl_t *const src_ppl, struct heap *const dest)
-/* Fill heap with non-zero values from array of character popularity. */
-/* Assume that source size == MAX_HEAP_SIZE */
-/* Return 1 if succeed, 0 otherwise */
+fill_heap(const ppl_t *const src_ppl, struct heap *const dest_heap)
 {
   int i, heap_index;
 
   CHKPTR(src_ppl);
-  CHKPTR(dest);
+  CHKPTR(dest_heap);
 
   heap_index = 0;
   for (i = 0; i < MAX_HEAP_SIZE; ++i)
@@ -59,19 +54,19 @@ fill_heap(const ppl_t *const src_ppl, struct heap *const dest)
               n->ppl = src_ppl[i]; /* set popularity */
               n->left = NULL;
               n->right = NULL;
-              dest->data[heap_index] = n;
+              dest_heap->data[heap_index] = n;
               heap_index++;
             }
           else
             {
               FREE(n);
-              clear_heap(dest, heap_index + 1);
+              clear_heap(dest_heap, heap_index + 1);
               return 0;
             }
         }
     }
 
-  dest->size = heap_index;
+  dest_heap->size = heap_index;
   return 1;
 }
 
@@ -133,7 +128,6 @@ heapify(struct heap *const h, int i)
 
 void
 build_heap(struct heap *const h)
-/* Make structure with heap properties */
 {
   int i;
 
@@ -145,8 +139,6 @@ build_heap(struct heap *const h)
 
 struct node_t *
 heap_get_min(const struct heap *const h)
-/* Return pointer to element with minimal popularity. */
-/* Return NULL if heap is empty. */
 {
   CHKPTR(h);
 
@@ -157,9 +149,6 @@ heap_get_min(const struct heap *const h)
 
 struct node_t *
 heap_extract_min(struct heap *const h)
-/* Return pointer to element with minimal popularity
-   and delete it from heap. */
-/* Return NULL if heap is empty. */
 {
   struct node_t * min;
 
@@ -179,18 +168,19 @@ heap_extract_min(struct heap *const h)
 }
 
 void
-heap_insert(struct heap *const h, struct node_t * src_node)
-/* Insert node to heap. Assume that heap size < MAX_HEAP_SIZE */
+heap_insert(struct node_t * src_node, struct heap *const dest_heap)
 {
-  int i = (h->size)++;
+  int i = 0;
 
-  CHKPTR(h);
+  CHKPTR(dest_heap);
   CHKPTR(src_node);
 
-  while ((i > 0) && (h->data[parent(i)]->ppl > src_node->ppl))
+  i = (dest_heap->size)++;
+
+  while ((i > 0) && (dest_heap->data[parent(i)]->ppl > src_node->ppl))
     {
-      h->data[i] = h->data[parent(i)];
+      dest_heap->data[i] = dest_heap->data[parent(i)];
       i = parent(i);
     }
-  h->data[i] = src_node;
+  dest_heap->data[i] = src_node;
 }

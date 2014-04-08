@@ -166,7 +166,7 @@ decompress(const char *const src_fname,
   else
     {
       struct node_t * ppl_tree = NULL; 
-      ppl_tree = build_tree(char_ppl, verbose);
+      ppl_tree = build_tree(char_ppl);
       if (!ppl_tree)
         {
           fprintf(stderr, "Error of memory allocation!\n");

@@ -2,13 +2,8 @@
 #include <bit_set.h>
 
 void
-fill_bit_set_pos(code_t * src_bit_set)
-/* Fill array of code_t with 2^i LSB values, where i is array index. */
-/* Assume that size of array is more than MAX_BIT_SET_SIZE. */
-/* Example:
-   1000000000...
-   0100000000...
-   0010000000... etc. */
+fill_bit_set_pos(code_t * dest_bit_set)
+
 {
   int i;
   int size = sizeof(code_t);
@@ -16,7 +11,7 @@ fill_bit_set_pos(code_t * src_bit_set)
 
   for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
     {
-      src_bit_set[i] = val;
+      dest_bit_set[i] = val;
       val >>= 1;
     }
 }

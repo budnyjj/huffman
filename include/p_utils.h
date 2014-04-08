@@ -1,3 +1,8 @@
+/**
+   @file p_utils.h
+   @brief Contains useful macroses for work with pointers
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>

@@ -1,3 +1,10 @@
+/**
+   @file compress.c
+   @brief Provides compress functionality
+
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 
 #include <compress.h>
@@ -9,13 +16,22 @@
 #include <p_utils.h>
 #include <header_t.h>
 
+/** @brief Compress and write src contents to destination
+    
+    Compress contents of src with codes, specified in code_tbl,
+    and write variant to dest.
+
+    @param src Source file
+    @param dest Destination file
+    @param char_code Array of huffman codes
+    @param archive_info Information about archive
+    @param verbose Verbosity level
+ */
 static void
 write_data(FILE* src, FILE* dest, 
            const struct hf_code *const code_tbl,
            struct header_t *const archive_info,
            verbosity_t verbose)
-/* Compress contents of SRC with codes, specified in CODE_TBL,
-   and write variant to DEST */
 {
   int ch; /* character from input */
   int cur_buf_index = 0; /* current index in buffer */
@@ -77,13 +93,26 @@ write_data(FILE* src, FILE* dest,
   archive_info->last_offset = cur_offset + 1;
 }
 
+/** @brief Make archive from source contents and write it to destination
+    
+    This function wraps write_data function
+
+    @param src_fname Filename of source
+    @param dest_fname Filename of destination
+    @param char_ppl Array of character popularity
+    @param char_code Array of huffman codes
+    @param archive_info Information about archive
+    @param verbose Verbosity level
+
+    @see write_data
+
+    @return 1 if succeed, 0 otherwise
+ */
 static int
 write_archive(const char *const src_fname, const char *const dest_fname,
               const ppl_t *const char_ppl,
               const struct hf_code *const char_code,
               struct header_t archive_info, verbosity_t verbose)
-/* Compress and write src contents to dest */
-/* Return 1 if succeed, 0 otherwise */
 {
   FILE* src_file = NULL;
   FILE* dest_file = fopen(dest_fname, "wb");
@@ -161,7 +190,7 @@ compress(const char *const src_fname,
       return 0;
     }
 
-  ppl_tree = build_tree(char_ppl, verbose);
+  ppl_tree = build_tree(char_ppl);
 
   if (!ppl_tree)
     {
@@ -176,4 +205,3 @@ compress(const char *const src_fname,
                        char_ppl, char_code,
                        archive_info, verbose);
 }
-

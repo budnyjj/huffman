@@ -31,10 +31,7 @@ export_code(const struct node_t *const cur_node,
 }
 
 struct node_t *
-build_tree(const ppl_t *const src_ppl, verbosity_t verbose)
-/* Build Huffman tree. */
-/* Set dest_tree to the tree root if there were no errors, NULL otherwise. */
-/* Return heap build status -> see header*/
+build_tree(const ppl_t *const src_ppl)
 {
   struct heap h;
 
@@ -55,7 +52,7 @@ build_tree(const ppl_t *const src_ppl, verbosity_t verbose)
           n->left = heap_extract_min(&h);
           n->right = heap_extract_min(&h);
           n->ppl = n->left->ppl + n->right->ppl;
-          heap_insert(&h, n);
+          heap_insert(n, &h);
         }
 
       CHKPTR(heap_get_min(&h)); /* test ptr value */

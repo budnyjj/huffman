@@ -18,7 +18,7 @@ DEPENDS = -MT $@ -MD -MP -MF $(subst .o,.d,$@)
 
 SHELL = /bin/bash
 
-.PHONY: all clean distclean
+.PHONY: all doc test clean distclean
 
 
 all: buildrepo $(APP)
@@ -55,3 +55,6 @@ endif
 
 test:
 	$(MAKE) -C tests
+
+doc: 
+	doxygen Doxyfile

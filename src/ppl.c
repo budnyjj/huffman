@@ -35,7 +35,7 @@ print_ppl(const ppl_t *const ppl)
   puts("==================================");
 }
 
-ppl_t
+long int
 calculate_ppl(FILE* src, ppl_t *const dest_ppl,
               verbosity_t verbose)
 /* Calculate popularity of charaters from src */

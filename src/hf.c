@@ -1,3 +1,9 @@
+/**
+   @file hf.c
+   @brief Main function
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -5,6 +11,12 @@
 #include <compress.h>
 #include <decompress.h>
 
+/**
+   @brief Main function
+   @param[in] argc Number of console arguments
+   @param[in] argv Array of  console arguments
+   @return 0 if success, 1 if fail
+ */
 int
 main (int argc, char *argv[])
 {
