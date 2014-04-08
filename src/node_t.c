@@ -2,11 +2,9 @@
 
 struct node_t *
 init_node()
-/* Create new node with safe values */
 {
-  struct node_t * n = malloc(sizeof(struct node_t));
+  struct node_t * n = calloc(1, sizeof(struct node_t));
   n->o_char = NULL_CHAR;
-  n->ppl = 0;
   n->left = NULL;
   n->right = NULL;
 

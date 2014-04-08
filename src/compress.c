@@ -38,14 +38,12 @@ write_data(FILE* src, FILE* dest,
   int cur_offset = 0; /* current offset in bit_set */
   int max_offset = sizeof(code_t)*8;
 
-  code_t code_buffer[CODE_BUFFER_SIZE];
+  code_t code_buffer[CODE_BUFFER_SIZE] = {0};
 
   CHKPTR(src);
   CHKPTR(dest);
   CHKPTR(code_tbl);
   CHKPTR(archive_info);
-
-  clear_code_buffer(code_buffer);
 
   archive_info->buffer_size = CODE_BUFFER_SIZE;
 
@@ -146,7 +144,7 @@ write_archive(const char *const src_fname, const char *const dest_fname,
   fclose(src_file);
   src_file = NULL;
 
-  if (verbose == DEBUG)
+  if (verbose == INFO || verbose == DEBUG)
     {
       printf("=== ARCHIVE INFO ===\n");
       printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);

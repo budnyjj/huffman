@@ -152,13 +152,27 @@ struct <a class="el" href="structnode__t.html">node_t</a> *&#160;</td><td class=
 <dl class="section return"><dt>Returns</dt><dd>Created node </dd></dl>
 
 <p>Definition at line <a class="el" href="node__t_8c_source.html#l00017">17</a> of file <a class="el" href="node__t_8c_source.html">node_t.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">struct </span><a class="code" href="structnode__t.html">node_t</a> * dest_node = malloc(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code" href="structnode__t.html">node_t</a>));</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  dest_node-&gt;<a class="code" href="structnode__t.html#aac8fb2fd3dd4502fe722faa7ec056989">o_char</a> = src_node-&gt;<a class="code" href="structnode__t.html#aac8fb2fd3dd4502fe722faa7ec056989">o_char</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  dest_node-&gt;<a class="code" href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">ppl</a> = src_node-&gt;<a class="code" href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">ppl</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  dest_node-&gt;<a class="code" href="structnode__t.html#ae3ce583073f3fd0a7cfd4ec3d6914537">left</a> = src_node-&gt;<a class="code" href="structnode__t.html#ae3ce583073f3fd0a7cfd4ec3d6914537">left</a>; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  dest_node-&gt;<a class="code" href="structnode__t.html#a88ddc7d90adda8cc75b1e45dd5a58258">right</a> = src_node-&gt;<a class="code" href="structnode__t.html#a88ddc7d90adda8cc75b1e45dd5a58258">right</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordflow">return</span> dest_node;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="ttc" id="structnode__t_html"><div class="ttname"><a href="structnode__t.html">node_t</a></div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00021">node_t.h:21</a></div></div>
+<div class="ttc" id="structnode__t_html_a4e96d1d0ca0996fc6f07403120c27521"><div class="ttname"><a href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">node_t::ppl</a></div><div class="ttdeci">ppl_t ppl</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00024">node_t.h:24</a></div></div>
+<div class="ttc" id="structnode__t_html_aac8fb2fd3dd4502fe722faa7ec056989"><div class="ttname"><a href="structnode__t.html#aac8fb2fd3dd4502fe722faa7ec056989">node_t::o_char</a></div><div class="ttdeci">int o_char</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00023">node_t.h:23</a></div></div>
+<div class="ttc" id="structnode__t_html_a88ddc7d90adda8cc75b1e45dd5a58258"><div class="ttname"><a href="structnode__t.html#a88ddc7d90adda8cc75b1e45dd5a58258">node_t::right</a></div><div class="ttdeci">struct node_t * right</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00026">node_t.h:26</a></div></div>
+<div class="ttc" id="structnode__t_html_ae3ce583073f3fd0a7cfd4ec3d6914537"><div class="ttname"><a href="structnode__t.html#ae3ce583073f3fd0a7cfd4ec3d6914537">node_t::left</a></div><div class="ttdeci">struct node_t * left</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00025">node_t.h:25</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 8 2014 16:52:47 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 8 2014 16:56:27 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

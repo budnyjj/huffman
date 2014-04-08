@@ -1,0 +1,26 @@
+digraph "include/ppl_tree.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/ppl_tree.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ppl_t.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ppl__t_8h.html",tooltip="Contains definition of character popularity type. "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="node_t.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$node__t_8h.html",tooltip="Determines node type and functions to work with it. "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="code_t.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$code__t_8h.html",tooltip="Determines huffman code type. "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="verbosity_t.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$verbosity__t_8h.html",tooltip="Contains enumeration of verbosity levels. "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="code_tbl.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$code__tbl_8h.html",tooltip="Provides huffman code structure definition and some functions to work with it. "];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="bit_set.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$bit__set_8h.html",tooltip="Provides functions for working with arrays of bits. "];
+  Node8 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ppl_heap.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ppl__heap_8h.html",tooltip="Provides popularity heap definition and realted functions to work with. "];
+  Node9 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

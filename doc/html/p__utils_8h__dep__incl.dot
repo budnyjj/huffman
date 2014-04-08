@@ -1,0 +1,20 @@
+digraph "include/p_utils.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/p_utils.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="src/code_tbl.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$code__tbl_8c_source.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="src/compress.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$compress_8c.html",tooltip="Provides compress functionality. "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/decompress.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$decompress_8c_source.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="src/io_options.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$io__options_8c_source.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src/ppl.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ppl_8c_source.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="src/ppl_heap.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ppl__heap_8c_source.html"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="src/ppl_tree.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ppl__tree_8c_source.html"];
+}

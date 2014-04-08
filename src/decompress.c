@@ -150,7 +150,7 @@ decompress(const char *const src_fname,
   fclose(src_file);
   src_file = NULL;
 
-  if (verbose == DEBUG)
+  if (verbose == INFO || verbose == DEBUG)
     {
       printf("=== ARCHIVE INFO ===\n");
       printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);

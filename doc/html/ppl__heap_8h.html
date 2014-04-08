@@ -162,7 +162,16 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00130">130</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;{</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  CHKPTR(h);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordflow">for</span> (i = (h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a>/2)-1; i &gt;= 0; i--)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    heapify(h, i);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a2a8de14bdca8f4531a5208b06c84d489"></a>
@@ -200,7 +209,48 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>1 if succeed, 0 otherwise </dd></dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00037">37</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">int</span> i, heap_index;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  CHKPTR(src_ppl);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  CHKPTR(dest_heap);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  heap_index = 0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">for</span> (i = 0; i &lt; MAX_HEAP_SIZE; ++i)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">if</span> (src_ppl[i]) <span class="comment">/* Non zero popularity */</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          <span class="keyword">struct </span><a class="code" href="structnode__t.html">node_t</a> * n = malloc(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code" href="structnode__t.html">node_t</a>));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;          <span class="keywordflow">if</span> (n)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;              n-&gt;<a class="code" href="structnode__t.html#aac8fb2fd3dd4502fe722faa7ec056989">o_char</a> = i; <span class="comment">/* set character code */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;              n-&gt;<a class="code" href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">ppl</a> = src_ppl[i]; <span class="comment">/* set popularity */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;              n-&gt;<a class="code" href="structnode__t.html#ae3ce583073f3fd0a7cfd4ec3d6914537">left</a> = NULL;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;              n-&gt;<a class="code" href="structnode__t.html#a88ddc7d90adda8cc75b1e45dd5a58258">right</a> = NULL;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;              dest_heap-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[heap_index] = n;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;              heap_index++;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;          <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              FREE(n);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;              clear_heap(dest_heap, heap_index + 1);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;              <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  dest_heap-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = heap_index;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="ttc" id="structnode__t_html"><div class="ttname"><a href="structnode__t.html">node_t</a></div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00021">node_t.h:21</a></div></div>
+<div class="ttc" id="structnode__t_html_a4e96d1d0ca0996fc6f07403120c27521"><div class="ttname"><a href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">node_t::ppl</a></div><div class="ttdeci">ppl_t ppl</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00024">node_t.h:24</a></div></div>
+<div class="ttc" id="structnode__t_html_aac8fb2fd3dd4502fe722faa7ec056989"><div class="ttname"><a href="structnode__t.html#aac8fb2fd3dd4502fe722faa7ec056989">node_t::o_char</a></div><div class="ttdeci">int o_char</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00023">node_t.h:23</a></div></div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+<div class="ttc" id="structheap_html_aef9394e0eb992b482664f6c0b114b9c9"><div class="ttname"><a href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">heap::data</a></div><div class="ttdeci">struct node_t * data[MAX_HEAP_SIZE]</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00019">ppl_heap.h:19</a></div></div>
+<div class="ttc" id="structnode__t_html_a88ddc7d90adda8cc75b1e45dd5a58258"><div class="ttname"><a href="structnode__t.html#a88ddc7d90adda8cc75b1e45dd5a58258">node_t::right</a></div><div class="ttdeci">struct node_t * right</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00026">node_t.h:26</a></div></div>
+<div class="ttc" id="structnode__t_html_ae3ce583073f3fd0a7cfd4ec3d6914537"><div class="ttname"><a href="structnode__t.html#ae3ce583073f3fd0a7cfd4ec3d6914537">node_t::left</a></div><div class="ttdeci">struct node_t * left</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00025">node_t.h:25</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="ac150a861783142e297db3b3962ae299e"></a>
@@ -228,7 +278,27 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Return pointer to result or NULL if heap is empty. </dd></dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00151">151</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keyword">struct </span><a class="code" href="structnode__t.html">node_t</a> * min;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  CHKPTR(h);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordflow">if</span> (h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a> == 0)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  min = h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[0];</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[0] = h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[(h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)-1];</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[(h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)-1] = NULL;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  (h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)--;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  heapify(h, 0);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <span class="keywordflow">return</span> min;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
+<div class="ttc" id="structnode__t_html"><div class="ttname"><a href="structnode__t.html">node_t</a></div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00021">node_t.h:21</a></div></div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+<div class="ttc" id="structheap_html_aef9394e0eb992b482664f6c0b114b9c9"><div class="ttname"><a href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">heap::data</a></div><div class="ttdeci">struct node_t * data[MAX_HEAP_SIZE]</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00019">ppl_heap.h:19</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a90fcb2050d819bbf09b0200590a3277b"></a>
@@ -256,7 +326,16 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Return pointer to result or NULL if heap is empty. </dd></dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00141">141</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;{</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  CHKPTR(h);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <span class="keywordflow">if</span> (h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a> &lt; 1)</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordflow">return</span> h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[0];</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+<div class="ttc" id="structheap_html_aef9394e0eb992b482664f6c0b114b9c9"><div class="ttname"><a href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">heap::data</a></div><div class="ttdeci">struct node_t * data[MAX_HEAP_SIZE]</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00019">ppl_heap.h:19</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a58a6b23028b6132bf55523dc148f8b05"></a>
@@ -294,7 +373,25 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00171">171</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  CHKPTR(dest_heap);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  CHKPTR(src_node);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  i = (dest_heap-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)++;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordflow">while</span> ((i &gt; 0) &amp;&amp; (dest_heap-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[parent(i)]-&gt;<a class="code" href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">ppl</a> &gt; src_node-&gt;<a class="code" href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">ppl</a>))</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;      dest_heap-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[i] = dest_heap-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[parent(i)];</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      i = parent(i);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  dest_heap-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[i] = src_node;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
+<div class="ttc" id="structnode__t_html_a4e96d1d0ca0996fc6f07403120c27521"><div class="ttname"><a href="structnode__t.html#a4e96d1d0ca0996fc6f07403120c27521">node_t::ppl</a></div><div class="ttdeci">ppl_t ppl</div><div class="ttdef"><b>Definition:</b> <a href="node__t_8h_source.html#l00024">node_t.h:24</a></div></div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+<div class="ttc" id="structheap_html_aef9394e0eb992b482664f6c0b114b9c9"><div class="ttname"><a href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">heap::data</a></div><div class="ttdeci">struct node_t * data[MAX_HEAP_SIZE]</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00019">ppl_heap.h:19</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a618bfa84b8f6e069ab26c632498eb736"></a>
@@ -321,13 +418,26 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="ppl__heap_8c_source.html#l00008">8</a> of file <a class="el" href="ppl__heap_8c_source.html">ppl_heap.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  CHKPTR(h);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keywordflow">for</span> (i = 0; i &lt; MAX_HEAP_SIZE; ++i)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      h-&gt;<a class="code" href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">data</a>[i] = NULL;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  h-&gt;<a class="code" href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="ttc" id="structheap_html_a439227feff9d7f55384e8780cfc2eb82"><div class="ttname"><a href="structheap.html#a439227feff9d7f55384e8780cfc2eb82">heap::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00020">ppl_heap.h:20</a></div></div>
+<div class="ttc" id="structheap_html_aef9394e0eb992b482664f6c0b114b9c9"><div class="ttname"><a href="structheap.html#aef9394e0eb992b482664f6c0b114b9c9">heap::data</a></div><div class="ttdeci">struct node_t * data[MAX_HEAP_SIZE]</div><div class="ttdef"><b>Definition:</b> <a href="ppl__heap_8h_source.html#l00019">ppl_heap.h:19</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 8 2014 16:52:47 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 8 2014 16:56:27 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

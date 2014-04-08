@@ -15,7 +15,7 @@
 #include <verbosity_t.h>
 #include <ppl_t.h>
 
-#define CODE_BUFFER_SIZE 1024 /* how to determine optimal size? */
+#define CODE_BUFFER_SIZE 4096 /* how to determine optimal size? */
 
 /**
    @brief Fill code buffer with zero values

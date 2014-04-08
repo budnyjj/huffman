@@ -147,7 +147,18 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="bit__set_8c_source.html#l00005">5</a> of file <a class="el" href="bit__set_8c_source.html">bit_set.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordtype">int</span> size = <span class="keyword">sizeof</span>(code_t);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  code_t val = 1 &lt;&lt; (size*8 - 1);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">for</span> (i = 0; i &lt; MAX_BIT_SET_SIZE; ++i)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;      dest_bit_set[i] = val;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;      val &gt;&gt;= 1;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a40eb553e3a68df1e22421eb1e918cb79"></a>
@@ -173,7 +184,22 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="bit__set_8c_source.html#l00035">35</a> of file <a class="el" href="bit__set_8c_source.html">bit_set.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  puts(<span class="stringliteral">&quot;=== BITSET ===&quot;</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">for</span> (i = 0; i &lt; MAX_BIT_SET_SIZE; ++i)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="bit__set_8h.html#a54ef0082c1168e98107d7de265329c6d">print_bits</a>(bit_set[i]);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  puts(<span class="stringliteral">&quot;==============&quot;</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="ttc" id="bit__set_8h_html_a54ef0082c1168e98107d7de265329c6d"><div class="ttname"><a href="bit__set_8h.html#a54ef0082c1168e98107d7de265329c6d">print_bits</a></div><div class="ttdeci">void print_bits(code_t bits)</div><div class="ttdoc">Print contents of huffman code in binary form. </div><div class="ttdef"><b>Definition:</b> <a href="bit__set_8c_source.html#l00020">bit_set.c:20</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a54ef0082c1168e98107d7de265329c6d"></a>
@@ -199,13 +225,24 @@ Functions</h2></td></tr>
 </dl>
 
 <p>Definition at line <a class="el" href="bit__set_8c_source.html#l00020">20</a> of file <a class="el" href="bit__set_8c_source.html">bit_set.c</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">int</span> size = <span class="keyword">sizeof</span>(code_t);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  code_t max_pow = 1 &lt;&lt; (size*8 - 1);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordflow">for</span> (i = 0; i &lt; size*8; ++i)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      printf(<span class="stringliteral">&quot;%u&quot;</span>, bits &amp; max_pow ? 1 : 0); <span class="comment">/* print last bit and shift left. */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      bits &lt;&lt;= 1;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 8 2014 16:52:47 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 8 2014 16:56:27 for huffman by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
