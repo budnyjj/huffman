@@ -116,13 +116,14 @@ read_single_char(const ppl_t *const src_ppl,
                  long int num_char)
 {
   int i, single_char;
+  FILE* dest_file = NULL;
 
   CHKPTR(src_ppl);
   CHKPTR(dest_fname);
 
   single_char = char_with_max_ppl(src_ppl);
 
-  FILE* dest_file = fopen(dest_fname, "w");
+  dest_file = fopen(dest_fname, "w");
   for (i = 0; i < num_char; i++)
     fputc(single_char, dest_file);
 

@@ -8,9 +8,9 @@ SRCDIRS := $(shell find . -name '*.c' -exec dirname {} \; | uniq)
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 
-DEBUG = -g 
+DEBUG = -g -D _DEBUG_
 INCLUDES = -I./include
-CFLAGS = $(DEBUG) -Wall $(INCLUDES) -c
+CFLAGS = -std=c89 -pedantic -Wall -O3 $(INCLUDES) -c
 LDFLAGS =
 LIBS =
 
@@ -18,8 +18,7 @@ DEPENDS = -MT $@ -MD -MP -MF $(subst .o,.d,$@)
 
 SHELL = /bin/bash
 
-.PHONY: all doc test clean distclean
-
+.PHONY: all doc run-tests test clean distclean
 
 all: buildrepo $(APP)
 
@@ -53,7 +52,7 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 endif
 
-test:
+run-tests:
 	$(MAKE) -C tests
 
 doc: 

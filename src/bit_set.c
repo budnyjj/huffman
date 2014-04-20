@@ -18,7 +18,6 @@ fill_bit_set_pos(code_t * dest_bit_set)
 
 void
 print_bits(code_t bits)
-/* print contents of code_t element */
 {
   int i;
   int size = sizeof(code_t);

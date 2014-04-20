@@ -25,7 +25,7 @@ main (int argc, char *argv[])
   if (!get_options(argc, argv, &options))
     exit(1);
 
-  switch (options.command) 
+  switch (options.command)
     {
     case CREATE:
       {
