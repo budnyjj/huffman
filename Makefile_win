@@ -11,7 +11,7 @@ DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 DEBUG = -g -D _DEBUG_
 INCLUDES = -I./include
 CFLAGS = -std=c89 -pedantic -Wall -O3 $(INCLUDES) -c
-LDFLAGS =
+LDFLAGS = 
 LIBS =
 
 DEPENDS = -MT $@ -MD -MP -MF $(subst .o,.d,$@)
