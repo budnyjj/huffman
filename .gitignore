@@ -13,11 +13,8 @@ out/*
 *.o
 
 # Executables
-*.exe
-*.out
-*.app
-
 task/*
 tests/out/*
 tests/diff/*
 obj/*
+bin/*

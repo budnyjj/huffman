@@ -1,4 +1,4 @@
-APP = hf
+APP = hf.exe
 
 OBJDIR = obj
 BINDIR = bin
