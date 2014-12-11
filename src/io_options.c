@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef _WIN32 /* windows */
+#ifdef WIN32 /* windows */
 
 #include <win/wingetopt.h>
 #include <win/unistd.h>
@@ -22,7 +22,7 @@ static void
 print_usage (FILE* stream)
 {
 
-#ifdef _WIN32 /* windows */
+#ifdef WIN /* windows */
   const char * usage_msg =
     " -c DEST_FILENAME  "
     "Create a new archive and store it in DEST_FILENAME\n"
@@ -92,7 +92,7 @@ cli_get_options (int argc, char *const * argv,
   while (1) {
 
 
-#ifdef _WIN32
+#ifdef WIN
 
     next_option = getopt(argc, argv, short_options);
 
