@@ -52,7 +52,7 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 endif
 
-run-tests:
+run-tests: all
 	$(MAKE) -C tests
 
 doc: 

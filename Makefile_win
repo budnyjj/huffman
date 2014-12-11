@@ -10,8 +10,7 @@ DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 
 DEBUG = -g -D _DEBUG_
 INCLUDES = -I./include
-PLATFORM = -D__WINDOWS__
-CFLAGS = -std=c89 -pedantic -Wall -O3 $(PLATFORM) $(INCLUDES) -c
+CFLAGS = -std=c89 -pedantic -Wall -O3 $(INCLUDES) -c
 LDFLAGS =
 LIBS =
 
@@ -53,7 +52,7 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 endif
 
-run-tests:
+run-tests: all
 	$(MAKE) -C tests
 
 doc: 

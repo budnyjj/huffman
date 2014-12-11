@@ -5,11 +5,11 @@ md:
 	mkdir diff
 
 clean:
-	rm -f out/*
-	rm -f diff/*
+	rm -rf out
+	rm -rf diff
 
 test:
-	./final_test.sh hf
+	bash ./final_test.sh ../bin/hf
 
 run-tests:
-	./test.sh hf
+	bash ./test.sh ../bin/hf

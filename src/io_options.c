@@ -1,17 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#ifdef __WINDOWS__ /* windows */
-
-#include <win/wingetopt.h>
-#include <win/unistd.h>
-
-#else /* GNU */
-
 #include <unistd.h>
 #include <getopt.h>
-
-#endif
 
 #include <p_utils.h>
 #include <io_options.h>
@@ -21,22 +11,6 @@ const char* program_name;
 static void
 print_usage (FILE* stream)
 {
-
-#ifdef __WINDOWS__ 
-  const char * usage_msg =
-    " -c DEST_FILENAME  "
-    "Create a new archive and store it in DEST_FILENAME\n"
-    " -x DEST_FILENAME  "
-    "Extract an existing archive to DEST_FILENAME\n"
-    " -h                "
-    "Display this help message\n"
-    " -v                "
-    "Display info messages\n"
-    " -d                "
-    "Display debug messages\n";
-
-#else /* GNU */
-
   const char * usage_msg =
     " -c --create DEST_FILENAME   "
     "Create a new archive and store it in DEST_FILENAME\n"
@@ -48,8 +22,6 @@ print_usage (FILE* stream)
     "Display info messages\n"
     " -d --debug                  "
     "Display debug messages\n";
-
-#endif
 
   fprintf (stream, "Usage: %s [COMMAND...] [SRC_FILENAME]\n", program_name);
   fprintf (stream, usage_msg);
@@ -73,8 +45,6 @@ cli_get_options (int argc, char *const * argv,
   int num_files;
   char * short_options = "c:dhvx:";
 
-#ifdef __linux__
-
   const struct option long_options[] =
     {
       {"create", required_argument, NULL, 'c'},
@@ -85,22 +55,12 @@ cli_get_options (int argc, char *const * argv,
       {NULL, 0, NULL, 0}
     };
 
-#endif
-
   program_name = argv[0];
 
   while (1) {
 
-
-#ifdef __WINDOWS__
-
-    next_option = getopt(argc, argv, short_options);
-
-#else
-
     next_option = getopt_long(argc, argv, short_options,
                                long_options, NULL);
-#endif
 
     if (next_option == -1)
       break;
