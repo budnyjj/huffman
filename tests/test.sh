@@ -8,7 +8,6 @@ else
     exit $E_WRONGARGS
 fi
 
-
 echo "START TESTING $PROGRAM"
 for file in $(ls in/)
 do

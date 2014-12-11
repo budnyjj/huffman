@@ -10,7 +10,7 @@ DEPS := $(patsubst %.c,$(OBJDIR)/%.d,$(SRCS))
 
 DEBUG = -g -D _DEBUG_
 INCLUDES = -I./include
-PLATFORM = -DWIN
+PLATFORM = -D__WINDOWS__
 CFLAGS = -std=c89 -pedantic -Wall -O3 $(PLATFORM) $(INCLUDES) -c
 LDFLAGS =
 LIBS =

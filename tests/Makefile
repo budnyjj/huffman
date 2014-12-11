@@ -1,4 +1,8 @@
-default: clean run-tests
+default: md run-tests clean
+
+md:
+	mkdir out
+	mkdir diff
 
 clean:
 	rm -f out/*
