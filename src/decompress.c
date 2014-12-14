@@ -1,3 +1,10 @@
+/**
+   @file decompress.c
+   @brief Provides decompress functionality
+
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 
 #include <decompress.h>
@@ -110,7 +117,7 @@ read_archive(const char* src_fname, const char* dest_fname,
   src_file = NULL;
 }
 
-void
+static void
 read_single_char(const ppl_t *const src_ppl,
                  const char *const dest_fname,
                  long int num_char)
@@ -130,12 +137,19 @@ read_single_char(const ppl_t *const src_ppl,
   fclose(dest_file);
 }
 
+/** @brief Wrapper function for complex decompress purpouse
+    
+    Wraps utility functions in self-explainable body.
+    Return 1 if succeed, 0 otherwise.
+
+    @param src_fname Source filename
+    @param dest_fname Destination filename
+    @param verbose Verbosity level
+ */
 int
 decompress(const char *const src_fname,
          const char *const dest_fname,
          verbosity_t verbose)
-/* Decompress contents of src and write it to dest */
-/* Return 1 if succeed, 0 otherwise */
 {
   ppl_t char_ppl[MAX_PPL_SIZE] = {0};
   struct header_t archive_info = {0, 0, 0}; /* contains info about archive */

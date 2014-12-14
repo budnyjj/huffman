@@ -1,3 +1,9 @@
+/**
+   @file ppl.c
+   @brief Popularity utilities
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 #include <ppl.h>
 #include <p_utils.h>
@@ -35,11 +41,19 @@ print_ppl(const ppl_t *const ppl)
   puts("==================================");
 }
 
+/**
+   @brief Calculate character popularity
+
+   Calculate popularity of charaters from source file.
+
+   @param src Source file
+   @param dest_ppl Array of character popularities
+   @param verbose Verbosity level
+   @return Number of read characters if succeed, 0 otherwise.
+ */
 long int
 calculate_ppl(FILE* src, ppl_t *const dest_ppl,
               verbosity_t verbose)
-/* Calculate popularity of charaters from src */
-/* Return number of read characters if succeed, 0 otherwise */
 {
   int ch;
   long int total = 0L;
@@ -61,6 +75,16 @@ calculate_ppl(FILE* src, ppl_t *const dest_ppl,
   return total;
 }
 
+/**
+   @brief Read character popularity
+
+   Write character popularity to destination file.
+   Return offset of end.
+
+   @param src_ppl Array of character popularities
+   @param dest Destination file
+   @return Number of coded characters if suceed, 0 otherwise
+ */
 int
 write_ppl(const ppl_t *const src_ppl, FILE* dest)
 /* Write character popularity to file */
@@ -82,11 +106,21 @@ write_ppl(const ppl_t *const src_ppl, FILE* dest)
   return num_code;
 }
 
+/**
+   @brief Read character popularity
+
+   Read character popularity from source file.
+   Return offset of end.
+
+   @param src Source file
+   @param dest_ppl Array of character popularities
+   @param num_code Number of character codes
+   @param verbose Verbosity level
+   @return Offset of end
+ */
 long int
 read_ppl(FILE* src, ppl_t *const dest_ppl,
          int num_code, verbosity_t verbose)
-/* Read character popularity from src */
-/* Return end offset */
 {
   int i, ch;
 
@@ -102,6 +136,14 @@ read_ppl(FILE* src, ppl_t *const dest_ppl,
   return ftell(src);
 }
 
+/**
+   @brief Get code of character with maximmum popularity 
+
+   Get code of character with maximmum popularity 
+
+   @param src_ppl Array of character popularities
+   @return Code of character with maximum polularity
+ */
 int 
 char_with_max_ppl(const ppl_t *const src_ppl)
 {

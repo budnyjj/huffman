@@ -1,3 +1,10 @@
+/**
+   @file io_options.c
+   @brief Provides parse command line options
+
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -190,6 +197,15 @@ check_options(const struct io_options *const options)
   return 1;
 }
 
+/** @brief Parse and check command line options
+    
+    Parse and check command line options from argc and argc,
+    and store them in dest_opts.
+
+    @param argc Number of command line options
+    @param argv Array of command line options
+    @param dest_opts Struct to store options in
+ */
 int
 get_options(int argc, char ** argv,
                struct io_options *const dest_opts)

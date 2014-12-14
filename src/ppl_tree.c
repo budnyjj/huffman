@@ -1,17 +1,23 @@
+/**
+   @file ppl_tree.c
+   @brief Huffman tree utilities
+   @author Roman Budny
+*/
+
 #include <stdio.h>
 #include <ppl_tree.h>
 #include <bit_set.h>
 #include <p_utils.h>
 
+/* Recursive traverse on NOT NULL tree. */
+/* Assume that size of code_tbl >= maximal character code */
+/* Assume that each not NULL_CHAR node have both children */
 static void
 export_code(const struct node_t *const cur_node,
             struct hf_code *const code_tbl,
             code_t cur_code,
             int cur_level,
             const code_t *const bit_set)
-/* Recursive traverse on NOT NULL tree. */
-/* Assume that size of code_tbl >= maximal character code */
-/* Assume that each not NULL_CHAR node have both children */
 {
   if (cur_node->o_char != NULL_CHAR)
     {
@@ -30,6 +36,14 @@ export_code(const struct node_t *const cur_node,
     }
 }
 
+/**
+   @brief Build Huffman tree based on character popularity 
+
+   Build Huffman tree based on character popularity
+
+   @param src_ppl Array of character popularities
+   @return Pointer to the root of Huffman tree
+ */
 struct node_t *
 build_tree(const ppl_t *const src_ppl)
 {
@@ -62,11 +76,19 @@ build_tree(const ppl_t *const src_ppl)
     return NULL;
 }
 
+/**
+   @brief Export character codes from Huffman tree to code table
+
+   Export character codes from Huffman tree to code table
+
+   @param src_tree Huffman tree
+   @param dst_code_tbl Destination code table
+   @param verbose Level of verbosity
+ */
 void
 tree_export_code(const struct node_t *const src_tree,
-                 struct hf_code *const dest_code_tbl,
+                 struct hf_code *const dst_code_tbl,
                  verbosity_t verbose)
-/* Export character codes from huffman tree to code table */
 {
   int init_level = 0;
   code_t init_code = 0;
@@ -74,23 +96,23 @@ tree_export_code(const struct node_t *const src_tree,
   code_t bit_set[MAX_BIT_SET_SIZE]; /* array of bits with 2^i LSB values, i -- index */ 
 
   CHKPTR(src_tree);
-  CHKPTR(dest_code_tbl);
+  CHKPTR(dst_code_tbl);
 
   fill_bit_set_pos(bit_set);
 
   if (verbose == DEBUG)
     print_bit_set(bit_set);
 
-  export_code(src_tree, dest_code_tbl, init_code, init_level, bit_set);
+  export_code(src_tree, dst_code_tbl, init_code, init_level, bit_set);
 
   if (verbose == DEBUG)
-    print_code_tbl(dest_code_tbl);
+    print_code_tbl(dst_code_tbl);
 }
 
-static void
-clear_node(struct node_t * cur_node)
 /* Free memory, which was allocated for popularity tree */
 /* Assume that each not NULL_CHAR node have both children */
+static void
+clear_node(struct node_t * cur_node)
 {
   if (cur_node->o_char == NULL_CHAR)
     {
@@ -100,10 +122,16 @@ clear_node(struct node_t * cur_node)
   FREE(cur_node);
 }
 
+/**
+   @brief Clear all data from Huffman data
 
+   Clear all data from Huffman data.
+   This is a wrapper around recursive function clear_node.
+
+   @param ppl_tree Huffman tree
+ */
 void
 clear_tree(struct node_t * ppl_tree)
-/* Wrapper around recursive function clear_node */
 {
   CHKPTR(ppl_tree);
   clear_node(ppl_tree);

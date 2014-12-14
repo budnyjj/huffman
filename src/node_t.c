@@ -1,5 +1,15 @@
+/**
+   @file node_t.c
+   @brief Node utils
+   @author Roman Budny
+*/
+
 #include <node_t.h>
 
+/**
+   @brief Initialize node
+   @return Node with safe values
+ */
 struct node_t *
 init_node()
 {
@@ -11,9 +21,14 @@ init_node()
   return n;
 }
 
+/**
+   @brief Copy node
+
+   @param src_node Source node
+   @return Pointer to copy of source node
+ */
 struct node_t *
 copy_node(struct node_t * src_node)
-/* Return pointer to copy of source node */
 {
   struct node_t * dest_node = malloc(sizeof(struct node_t));
   dest_node->o_char = src_node->o_char;

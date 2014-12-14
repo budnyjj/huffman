@@ -1,9 +1,19 @@
+/**
+   @file ppl_heap.c
+   @brief Heap utilities
+   @author Roman Budny
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <ppl_heap.h>
 #include <p_utils.h>
 
+/**
+   @brief Initialize heap
+   @param h Source heap
+ */
 void
 init_heap(struct heap *const h)
 {
@@ -33,13 +43,18 @@ clear_heap(struct heap *const h, int max_index)
   h->size = 0;
 }
 
+/**
+   @brief Fill heap with character popularities
+   @param src_ppl Source array of popularity
+   @param dst_heap Destination heap
+ */
 int
-fill_heap(const ppl_t *const src_ppl, struct heap *const dest_heap)
+fill_heap(const ppl_t *const src_ppl, struct heap *const dst_heap)
 {
   int i, heap_index;
 
   CHKPTR(src_ppl);
-  CHKPTR(dest_heap);
+  CHKPTR(dst_heap);
 
   heap_index = 0;
   for (i = 0; i < MAX_HEAP_SIZE; ++i)
@@ -54,25 +69,24 @@ fill_heap(const ppl_t *const src_ppl, struct heap *const dest_heap)
               n->ppl = src_ppl[i]; /* set popularity */
               n->left = NULL;
               n->right = NULL;
-              dest_heap->data[heap_index] = n;
+              dst_heap->data[heap_index] = n;
               heap_index++;
             }
           else
             {
               FREE(n);
-              clear_heap(dest_heap, heap_index + 1);
+              clear_heap(dst_heap, heap_index + 1);
               return 0;
             }
         }
     }
 
-  dest_heap->size = heap_index;
+  dst_heap->size = heap_index;
   return 1;
 }
 
 /* Core min heap functionality */
 /* See T. H. Cormen, C. E. Leiserson "Introduction to Algorithms" */
-
 static void
 swap(struct node_t * data[], int i, int j)
 /* Swap pointers in heap data array */
@@ -103,9 +117,9 @@ right(int i)
   return (i+1)*2;
 }
 
+/* Support heap property */
 static void
 heapify(struct heap *const h, int i)
-/* Support heap property */
 {
   int l = left(i);
   int r = right(i);
@@ -126,6 +140,10 @@ heapify(struct heap *const h, int i)
     }
 }
 
+/**
+   @brief Build heap from array
+   @param h Pointer to heap
+ */
 void
 build_heap(struct heap *const h)
 {
@@ -137,6 +155,10 @@ build_heap(struct heap *const h)
     heapify(h, i);
 }
 
+/**
+   @brief Get minimal value from heap
+   @param h Pointer to heap
+ */
 struct node_t *
 heap_get_min(const struct heap *const h)
 {
@@ -147,6 +169,10 @@ heap_get_min(const struct heap *const h)
   return h->data[0];
 }
 
+/**
+   @brief Extract data with minimal value from heap
+   @param h Pointer to heap
+ */
 struct node_t *
 heap_extract_min(struct heap *const h)
 {
@@ -167,20 +193,25 @@ heap_extract_min(struct heap *const h)
   return min;
 }
 
+/**
+   @brief Insert data to  heap
+   @param src_node Source data node
+   @param dst_heap Pointer to heap
+ */
 void
-heap_insert(struct node_t * src_node, struct heap *const dest_heap)
+heap_insert(struct node_t * src_node, struct heap *const dst_heap)
 {
   int i = 0;
 
-  CHKPTR(dest_heap);
+  CHKPTR(dst_heap);
   CHKPTR(src_node);
 
-  i = (dest_heap->size)++;
+  i = (dst_heap->size)++;
 
-  while ((i > 0) && (dest_heap->data[parent(i)]->ppl > src_node->ppl))
+  while ((i > 0) && (dst_heap->data[parent(i)]->ppl > src_node->ppl))
     {
-      dest_heap->data[i] = dest_heap->data[parent(i)];
+      dst_heap->data[i] = dst_heap->data[parent(i)];
       i = parent(i);
     }
-  dest_heap->data[i] = src_node;
+  dst_heap->data[i] = src_node;
 }

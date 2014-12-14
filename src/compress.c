@@ -163,6 +163,15 @@ write_archive(const char *const src_fname, const char *const dest_fname,
   return 1;
 }
 
+/** @brief Wrapper function for complex compress purpouse
+    
+    Wraps utility functions in self-explainable body.
+    Return 1 if succeed, 0 otherwise.
+
+    @param src_fname Source filename
+    @param dest_fname Destination filename
+    @param verbose Verbosity level
+ */
 int
 compress(const char *const src_fname,
          const char *const dest_fname,
