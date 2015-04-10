@@ -2,6 +2,9 @@
 *~
 ~*
 \#*
+stamp-h1
+src/.deps
+
 
 # Input files
 in/*
@@ -13,8 +16,6 @@ out/*
 *.o
 
 # Executables
-task/*
-tests/out/*
-tests/diff/*
-obj/*
-bin/*
+task
+tests/out
+tests/diff
